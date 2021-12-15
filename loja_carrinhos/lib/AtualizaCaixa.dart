@@ -1,3 +1,5 @@
+//import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AtualizaCaixa  {
@@ -50,6 +52,7 @@ if (this.operacao == "s"){
 
                          await   caixa.get().then((value) {
 
+                        
                         valorConta =  value.data()[this.detalhe];
                       });
                         valorConta = valorConta + double.tryParse(this.valor);

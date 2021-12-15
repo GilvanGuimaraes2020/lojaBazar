@@ -25,6 +25,7 @@ List<TratarDados> gastosFilter =[];
 try{
   
  await  mensal.doc(periodo).get().then((value){
+   
      value.data().keys.forEach((element) {
        
           Map extrairDadosMes = Map();
