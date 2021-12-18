@@ -18,7 +18,7 @@ class AtualizaCaixa  {
 CollectionReference diario = FirebaseFirestore.instance.collection('MovimentoCaixa').
  doc('48yPK84Rbpi307lcrUBq').collection('contasVariadas');
 
-DocumentReference caixa = FirebaseFirestore.instance.collection('MovimentoCaixa').
+DocumentReference<Map> caixa = FirebaseFirestore.instance.collection('MovimentoCaixa').
  doc('ControleContas');
 
    void teste()async{

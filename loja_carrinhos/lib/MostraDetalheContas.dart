@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/CRUD.dart';
 import 'package:loja_carrinhos/TratarDadosBanco.dart';

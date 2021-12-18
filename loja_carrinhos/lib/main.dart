@@ -3,7 +3,7 @@
 
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loja_carrinhos/ListaProdutos.dart';
@@ -16,7 +16,7 @@ import 'package:loja_carrinhos/TelaCadastroProduto.dart';
 import 'package:loja_carrinhos/TelaEstoque.dart';
 
 import 'package:loja_carrinhos/TelaLogin.dart';
-import 'package:loja_carrinhos/TelaMenu.dart';
+
 import 'package:loja_carrinhos/data/creditSimulation/TelaSimulacaoVenda.dart';
 import 'package:loja_carrinhos/alertaListaVendas.dart';
 //import 'package:loja_carrinhos/TesteMudarData.dart';
@@ -26,6 +26,7 @@ import 'package:loja_carrinhos/comentarios.dart';
 import 'package:loja_carrinhos/realizarCompra.dart';
 //import 'package:loja_carrinhos/TelaAgenda.dart';
 import 'package:loja_carrinhos/relatorio.dart';
+import 'package:loja_carrinhos/view/screens/home_page.dart';
 
 
 
@@ -36,7 +37,7 @@ void main  () async
 
   runApp(MaterialApp(
 debugShowCheckedModeBanner: false,
-    home: Menu(),
+    home: HomePage(),
 
     routes: {
       '/telaCadastroCliente' : (context) => CadastroCliente(),     
