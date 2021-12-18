@@ -13,7 +13,7 @@ double sumTotEnt;
 
 
 
-CollectionReference mensal = FirebaseFirestore.instance.collection('MovimentoCaixa').
+CollectionReference< Map> mensal =  FirebaseFirestore.instance.collection('MovimentoCaixa').
  doc('48yPK84Rbpi307lcrUBq').collection('contasVariadas');
 
 SelecionaDados( this.categoria, this.periodo);
@@ -25,6 +25,7 @@ List<TratarDados> gastosFilter =[];
 try{
   
  await  mensal.doc(periodo).get().then((value){
+   
      value.data().keys.forEach((element) {
        
           Map extrairDadosMes = Map();

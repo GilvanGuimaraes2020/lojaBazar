@@ -1,3 +1,5 @@
+//import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AtualizaCaixa  {
@@ -16,7 +18,7 @@ class AtualizaCaixa  {
 CollectionReference diario = FirebaseFirestore.instance.collection('MovimentoCaixa').
  doc('48yPK84Rbpi307lcrUBq').collection('contasVariadas');
 
-DocumentReference caixa = FirebaseFirestore.instance.collection('MovimentoCaixa').
+DocumentReference<Map> caixa = FirebaseFirestore.instance.collection('MovimentoCaixa').
  doc('ControleContas');
 
    void teste()async{
@@ -50,6 +52,7 @@ if (this.operacao == "s"){
 
                          await   caixa.get().then((value) {
 
+                        
                         valorConta =  value.data()[this.detalhe];
                       });
                         valorConta = valorConta + double.tryParse(this.valor);
