@@ -1,10 +1,11 @@
 //import 'dart:async';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 
+
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:intl/intl.dart';
 import 'package:loja_carrinhos/MostraDetalheContas.dart';
 import 'package:loja_carrinhos/TratarDadosBanco.dart';
@@ -50,10 +51,10 @@ class _CaixaState extends State<Caixa> {
   
   String teste;
 
- CollectionReference diario = FirebaseFirestore.instance.collection('MovimentoCaixa').
+ CollectionReference<Map> diario = FirebaseFirestore.instance.collection('MovimentoCaixa').
  doc('48yPK84Rbpi307lcrUBq').collection('contasVariadas');
 
-  DocumentReference caixa = FirebaseFirestore.instance.collection('MovimentoCaixa').
+  DocumentReference<Map> caixa = FirebaseFirestore.instance.collection('MovimentoCaixa').
  doc('ControleContas');
 
 
