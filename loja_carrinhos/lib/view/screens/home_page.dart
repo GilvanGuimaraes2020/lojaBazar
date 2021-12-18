@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   var ctrlSenha = TextEditingController();
   var formState = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> globalState = new GlobalKey<ScaffoldState>();
-  userAuthService userAuth = new userAuthService();
+  UserAuthService userAuth = new UserAuthService();
 
   @override
   Widget build(BuildContext context) {
