@@ -50,8 +50,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-  fonts:
-    - family: Raleway
+ # fonts:
+  #  - family: Raleway
       #fonts:
         #- asset: packages/awesome_package/fonts/Raleway-Regular.ttf
         #- asset: packages/awesome_package/fonts/Raleway-Italic.ttf

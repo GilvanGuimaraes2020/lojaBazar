@@ -22,7 +22,7 @@ class _CadastroUsuaruioState extends State<CadastroUsuaruio> {
   var ctrlSenha = TextEditingController();
   var ctrlValSenha = TextEditingController();
   var formState = GlobalKey<FormState>();
-  userAuthService userAuth = new userAuthService();
+  UserAuthService userAuth = new UserAuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/TelaMenu.dart';
 import 'package:loja_carrinhos/data/service/user_auth_service.dart';
 import 'package:loja_carrinhos/view/screens/cadastro_usuario.dart';
+import 'package:loja_carrinhos/view/screens/menu_page.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_botao.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_campo_texto.dart';
 import 'package:toast/toast.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({ Key key, this.title }) : super(key: key);
@@ -20,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   var ctrlSenha = TextEditingController();
   var formState = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> globalState = new GlobalKey<ScaffoldState>();
-  userAuthService userAuth = new userAuthService();
+  UserAuthService userAuth = new UserAuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -81,13 +83,14 @@ class _HomePageState extends State<HomePage> {
     String result = await userAuth.login(ctrlLogin.text, ctrlSenha.text);
     if(result == "login efetuado com sucesso"){
       formState.currentState.reset();
+      
       Toast.show(result, context, duration: Toast.LENGTH_LONG,
        gravity: Toast.BOTTOM, backgroundColor: Colors.green);
       Navigator.push(
         context, 
         PageRouteBuilder(
           transitionDuration: Duration(milliseconds: 100),
-          pageBuilder: (_ , __ , ___) => Menu()));
+          pageBuilder: (_ , __ , ___) => MenuPage()));
     }else{
       formState.currentState.reset();
 
@@ -95,6 +98,12 @@ class _HomePageState extends State<HomePage> {
        gravity: Toast.BOTTOM, backgroundColor: Colors.red);
     }
   } else{
+    //para testes sem exigir login
+   /*  Navigator.push(context,
+     PageRouteBuilder(
+       transitionDuration: Duration(milliseconds: 100),
+       pageBuilder: (_ , __, ___) => MenuPage()));
+     */
     print("Preencher formulario");
   }
 }

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loja_carrinhos/MostraDetalheContas.dart';
 import 'package:loja_carrinhos/TratarDadosBanco.dart';
+import 'package:loja_carrinhos/view/screens/routes/routes.dart';
 
 import 'AtualizaCaixa.dart';
 import 'Models.dart';
@@ -735,7 +736,10 @@ children: [
   ),
                              child: Text("Ok"),
                              onPressed: (){
-                               Navigator.popUntil(context, ModalRoute.withName('/caixa'));
+                              // Navigator.popUntil(context, ModalRoute.withName('/caixa'));
+                             Routes route = 
+                              new Routes(route: " " , context: context);
+                             route.changeRoute();
                              },
                            )
                          ],

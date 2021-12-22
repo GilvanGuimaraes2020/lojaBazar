@@ -11,7 +11,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-class userAuthService{
+class UserAuthService{
   
      Future<String> login(String email , String senha) async {
     try {   
@@ -22,9 +22,9 @@ class userAuthService{
     
     return 'login efetuado com sucesso';
   } on FirebaseException catch (e) {
-    print(e);
+    print(e.code);
     print("Usuario nao cadastrado");
-    return "Usuario nao cadastrado";
+    return "Usuario ou senha errados";
   } 
   }
 
