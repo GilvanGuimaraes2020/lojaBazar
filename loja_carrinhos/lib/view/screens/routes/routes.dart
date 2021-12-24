@@ -66,7 +66,7 @@ class Routes{
           Navigator.push(context,
            PageRouteBuilder(
              transitionDuration: Duration(milliseconds: 100),
-             pageBuilder: (_ , __ , ___) => Caixa()));
+             pageBuilder: (_ , __ , ___) => CashPage()));
         } else if(route == 'alerta'){
           Navigator.push(context,
            PageRouteBuilder(

@@ -102,8 +102,8 @@ class _HomePageState extends State<HomePage> {
    /*  Navigator.push(context,
      PageRouteBuilder(
        transitionDuration: Duration(milliseconds: 100),
-       pageBuilder: (_ , __, ___) => MenuPage()));
-     */
+       pageBuilder: (_ , __, ___) => MenuPage())); */
+    
     print("Preencher formulario");
   }
 }
