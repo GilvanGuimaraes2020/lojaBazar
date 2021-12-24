@@ -75,8 +75,7 @@ class _MenuPageState extends State<MenuPage> {
         body: Container(
           padding: EdgeInsets.all(30),
           child: Column(
-            children: 
-            
+            children:        
             
              <Widget>[
             WMenuList(listMenu: listMenu)

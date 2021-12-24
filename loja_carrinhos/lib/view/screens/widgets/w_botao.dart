@@ -7,6 +7,8 @@ class WBotao extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(6),
+      margin: EdgeInsets.all(2),
       height: MediaQuery.of(context).size.height/12,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(

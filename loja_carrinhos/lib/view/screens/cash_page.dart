@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:loja_carrinhos/view/screens/models/modelsOfDB/m_DB_listCash.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_cash_list.dart';
 
@@ -33,15 +34,17 @@ class _CashPageState extends State<CashPage> {
  
   @override
   Widget build(BuildContext context) {
-    
+   // DateTime mes = DateTime.now();
+     
     return Scaffold(
       appBar: AppBar(
-        title: Text("Movimento do caixa"),),
+        //title: Text(DateFormat("Movimento do caixa 'MMM'").format(mes)),),
+        title: Text("Movimento Caixa"),),
 
       body: Container(
         child: Column(
           children: <Widget> [
-            WcashList(listCash: listCash,)
+             WcashList(listCash: listCash,)
           ],
         )
       ),

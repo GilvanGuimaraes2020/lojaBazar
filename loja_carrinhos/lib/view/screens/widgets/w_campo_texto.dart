@@ -21,7 +21,8 @@ class _WcampoTextoState extends State<WcampoTexto> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 6),
+      padding: EdgeInsets.all(6),
+      margin: EdgeInsets.all(2),
       child: TextFormField(
         controller: widget.variavel,
         style: style.style(),
@@ -31,7 +32,8 @@ class _WcampoTextoState extends State<WcampoTexto> {
         decoration: InputDecoration(
           labelText: widget.rotulo,
           labelStyle: TextStyle(fontSize: 16),
-          hintText: Messages("informacao").returnMessage()
+          filled: true,
+          fillColor: Colors.grey[300]
         ),
       ),
     );
