@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:loja_carrinhos/view/screens/widgets/w_botao.dart';
-import 'package:loja_carrinhos/view/screens/widgets/w_campo_numero.dart';
+import 'package:loja_carrinhos/view/screens/widgets/shared/w_dialogs.dart';
+import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
+import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_numero.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_campo_texto.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_datetime.dart';
+import 'package:loja_carrinhos/view/screens/widgets/w_dropdown.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_radiolist_outin.dart';
 class WDialogCash extends StatefulWidget {
   final String title;
@@ -42,11 +44,12 @@ class _WDialogCashState extends State<WDialogCash> {
             flex: 1,
             child: Column(
               children:<Widget> [
-                 WRadioListInOut(operacao: dia_radio,),
+                 //WRadioListInOut(operacao: dia_radio,),
+                 
                  WDatetime( data_radio: dia_radio, ),
                  Spacer(),
                  Container(
-                   height: MediaQuery.of(context).size.height / 3,
+                   height: MediaQuery.of(context).size.height / 2,
                    margin: EdgeInsets.symmetric(horizontal: 10),
                    decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -76,7 +79,8 @@ class _WDialogCashState extends State<WDialogCash> {
                              } else{
                                return "Preencher Campo";
                              }
-                           },)
+                           },),
+                           WDropDown()
                        ],
                      )
                      ),

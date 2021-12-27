@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_carrinhos/view/screens/widgets/shared/w_dialogs.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_dialog_cash.dart';
 
 class Wcash extends StatelessWidget {
@@ -14,12 +15,20 @@ class Wcash extends StatelessWidget {
       onTap: (){
         print("Voce clicou");
       },
-      onLongPress: (){
-        Navigator.push(context,
+      onLongPress: () async{
+      return  showDialog(
+        context: context, 
+        builder: (context)=>
+          WDialogs(
+          title: "Testte",
+          content: "Content"
+        ) ) ;
+
+        /* Navigator.push(context,
          PageRouteBuilder(
            transitionDuration: Duration(milliseconds: 100),
            pageBuilder: (_ , __, ___) =>WDialogCash(title: title,)));
-           
+            */
       },
       child: Hero(
         tag: title, 
