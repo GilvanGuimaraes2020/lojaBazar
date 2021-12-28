@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 
-import 'package:loja_carrinhos/TelaMenu.dart';
+import 'package:loja_carrinhos/obsoletos/TelaMenu.dart';
 import 'package:loja_carrinhos/data/service/user_auth_service.dart';
 import 'package:loja_carrinhos/view/screens/cadastro_usuario.dart';
 import 'package:loja_carrinhos/view/screens/menu_page.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
-import 'package:loja_carrinhos/view/screens/widgets/w_campo_texto.dart';
+import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_texto.dart';
 import 'package:toast/toast.dart';
 
 

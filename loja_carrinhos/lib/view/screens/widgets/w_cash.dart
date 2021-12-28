@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dialogs.dart';
-import 'package:loja_carrinhos/view/screens/widgets/w_dialog_cash.dart';
+import 'package:loja_carrinhos/view/screens/widgets/w_form_cash.dart';
 
-class Wcash extends StatelessWidget {
+class InOrOut{
+  String retorno;
+}
+
+class Wcash extends StatefulWidget {
   final String title;
   final double input , output, mes;
   final bool status;
@@ -10,34 +14,45 @@ class Wcash extends StatelessWidget {
   const Wcash({ Key key , this.title, this.input, this.output, this.status, this.mes}) ;
 
   @override
+  State<Wcash> createState() => _WcashState();
+}
+
+class _WcashState extends State<Wcash> {
+ InOrOut retorno = new InOrOut();
+ 
+  @override
   Widget build(BuildContext context) {
+    
     return InkWell(
       onTap: (){
         print("Voce clicou");
       },
       onLongPress: () async{
-      return  showDialog(
+      
+       await showDialog<String>(
         context: context, 
         builder: (context)=>
           WDialogs(
-          title: "Testte",
-          content: "Content"
+          title: "Tipo de movimento",
+          content: "Entrada ou Saida?",
+          retorno: retorno,
         ) ) ;
-
-        /* Navigator.push(context,
+        
+        print(retorno.retorno);
+        Navigator.push(context,
          PageRouteBuilder(
            transitionDuration: Duration(milliseconds: 100),
-           pageBuilder: (_ , __, ___) =>WDialogCash(title: title,)));
-            */
+           pageBuilder: (_ , __, ___) =>WFormCash(title: widget.title,in_or_out: retorno.retorno,)));
+           
       },
       child: Hero(
-        tag: title, 
+        tag: widget.title, 
         child: Container(
           margin: EdgeInsets.all(10),
           height: MediaQuery.of(context).size.height / 5,
           width: MediaQuery.of(context).size.width / 3,
           decoration: BoxDecoration(
-            color: status ? Colors.green[300] :
+            color: widget.status ? Colors.green[300] :
             Colors.red[200],
             borderRadius: BorderRadius.all(Radius.circular(10)),
             boxShadow: [
@@ -51,14 +66,14 @@ class Wcash extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text(title , style: TextStyle(color: Colors.black
+              Text(widget.title , style: TextStyle(color: Colors.black
               , fontSize: MediaQuery.of(context).size.height / 30 ,
               fontWeight: FontWeight.bold ),),
-              Text("Entrada: $input", style: TextStyle(
+              Text("Entrada: ${widget.input}", style: TextStyle(
                 color: Colors.black,
                 fontSize: MediaQuery.of(context).size.height / 50),
                  ),
-                Text("Saida: $output", style: TextStyle(
+                Text("Saida: ${widget.output}", style: TextStyle(
                 color: Colors.black,
                 fontSize: MediaQuery.of(context).size.height / 50),
                  ),

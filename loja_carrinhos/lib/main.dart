@@ -15,7 +15,8 @@ import 'package:loja_carrinhos/TelaCadastroCliente.dart';
 import 'package:loja_carrinhos/TelaCadastroProduto.dart';
 import 'package:loja_carrinhos/TelaEstoque.dart';
 
-import 'package:loja_carrinhos/TelaLogin.dart';
+import 'package:loja_carrinhos/obsoletos/TelaLogin.dart';
+import 'package:loja_carrinhos/obsoletos/TelaMenu.dart';
 
 import 'package:loja_carrinhos/data/creditSimulation/TelaSimulacaoVenda.dart';
 import 'package:loja_carrinhos/alertaListaVendas.dart';

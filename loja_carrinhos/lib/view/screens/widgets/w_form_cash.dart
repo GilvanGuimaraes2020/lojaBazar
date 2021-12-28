@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dialogs.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_numero.dart';
-import 'package:loja_carrinhos/view/screens/widgets/w_campo_texto.dart';
+import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_texto.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_datetime.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_dropdown.dart';
-import 'package:loja_carrinhos/view/screens/widgets/w_radiolist_outin.dart';
-class WDialogCash extends StatefulWidget {
+
+class WFormCash extends StatefulWidget {
   final String title;
-  const WDialogCash({ Key key , this.title }) ;
+  final String in_or_out;
+  const WFormCash({ Key key , this.title, this.in_or_out  }) ;
 
   @override
-  State<WDialogCash> createState() => _WDialogCashState();
+  State<WFormCash> createState() => _WFormCashState();
 }
 
 //classe interna para setar a data vinda do widget wdatetime.dart
@@ -20,7 +21,7 @@ class  DataRadio {
   int selectRadio;
 }
 
-class _WDialogCashState extends State<WDialogCash> {
+class _WFormCashState extends State<WFormCash> {
   var formKey = GlobalKey<FormState>();
   
   var ctrlDetalhe = TextEditingController();
@@ -32,7 +33,7 @@ class _WDialogCashState extends State<WDialogCash> {
   Widget build(BuildContext context) {
      return Scaffold(
        appBar: AppBar(
-         title: Text("Categoria: ${widget.title} "),),
+         title: Text("${widget.in_or_out}: ${widget.title} "),),
        body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -44,7 +45,9 @@ class _WDialogCashState extends State<WDialogCash> {
             flex: 1,
             child: Column(
               children:<Widget> [
-                 //WRadioListInOut(operacao: dia_radio,),
+                widget.in_or_out == "Entrada" ? 
+                  Icon(Icons.arrow_upward_outlined, color: Colors.green, size: MediaQuery.of(context).size.width / 7):
+                  Icon(Icons.arrow_downward_outlined, color: Colors.red, size: MediaQuery.of(context).size.width / 7),
                  
                  WDatetime( data_radio: dia_radio, ),
                  Spacer(),
