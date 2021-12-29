@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:loja_carrinhos/view/screens/detail_cash_page.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dialogs.dart';
-import 'package:loja_carrinhos/view/screens/widgets/w_form_cash.dart';
+import 'package:loja_carrinhos/view/screens/form_cash.dart';
 
 class InOrOut{
   String retorno;
@@ -25,7 +26,12 @@ class _WcashState extends State<Wcash> {
     
     return InkWell(
       onTap: (){
-        print("Voce clicou");
+        //navegar para pagina detailcash para apresentar detalhes daquela categoria
+        Navigator.push(
+          context, PageRouteBuilder(
+            transitionDuration: Duration(milliseconds: 100),
+            pageBuilder:(_ , __ , ___) => DetailCashPage(categoria: widget.title,)));
+       
       },
       onLongPress: () async{
       
@@ -39,10 +45,13 @@ class _WcashState extends State<Wcash> {
         ) ) ;
         
         print(retorno.retorno);
-        Navigator.push(context,
+        if (retorno.retorno != null){
+          Navigator.push(context,
          PageRouteBuilder(
            transitionDuration: Duration(milliseconds: 100),
-           pageBuilder: (_ , __, ___) =>WFormCash(title: widget.title,in_or_out: retorno.retorno,)));
+           pageBuilder: (_ , __, ___) =>FormCash(title: widget.title,inOrOut: retorno.retorno,)));
+        }
+        
            
       },
       child: Hero(

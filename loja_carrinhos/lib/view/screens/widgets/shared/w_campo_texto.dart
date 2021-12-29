@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/view/shared/fonts/style.dart';
-import 'package:loja_carrinhos/view/shared/messages/messages.dart';
+
 
 class WcampoTexto extends StatefulWidget {
   final variavel;

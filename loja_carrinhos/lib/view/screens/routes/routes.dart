@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:loja_carrinhos/MovimentoCaixa.dart';
+
 import 'package:loja_carrinhos/RealizarCompra.dart';
 import 'package:loja_carrinhos/RealizarVenda.dart';
 import 'package:loja_carrinhos/TelaCadastroProduto.dart';

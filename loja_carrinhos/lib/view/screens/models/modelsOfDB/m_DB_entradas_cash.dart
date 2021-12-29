@@ -1,13 +1,21 @@
 class MDBEntradasCash{
-  String id;
+  
   String dia;
-  String categoria;
-  Map<String , dynamic> dados;
+  String detalhe;
+  String operacao;
+  String banco;
+  double parcelas;
+  double valor;
+   
+  MDBEntradasCash({ this.dia, this.detalhe, this.operacao, this.banco, this.parcelas, this.valor});
 
-  MDBEntradasCash({this.id, this.dia, this.categoria, this.dados});
-
-  MDBEntradasCash.fromMap(String id , Map<String, dynamic> map){
-    this.id = id ?? " ";
+  MDBEntradasCash.fromMap(String dia , Map<String , dynamic> map){
+    this.dia = dia;
+    this.detalhe = map['detalhe'];
+    this.operacao = map['operacao'];
+    this.banco = map['banco'];
+    this.parcelas = map['parcelas'];
+    this.valor = map['valor'];  
     
   }
 }

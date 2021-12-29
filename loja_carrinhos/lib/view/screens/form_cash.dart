@@ -1,18 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:loja_carrinhos/view/screens/widgets/shared/w_dialogs.dart';
+
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_numero.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_texto.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_datetime.dart';
-import 'package:loja_carrinhos/view/screens/widgets/w_dropdown.dart';
+import 'package:loja_carrinhos/view/screens/widgets/shared/w_dropdown.dart';
 
-class WFormCash extends StatefulWidget {
+class FormCash extends StatefulWidget {
   final String title;
-  final String in_or_out;
-  const WFormCash({ Key key , this.title, this.in_or_out  }) ;
+  final String inOrOut;
+  const FormCash({ Key key , this.title, this.inOrOut  }) ;
 
   @override
-  State<WFormCash> createState() => _WFormCashState();
+  State<FormCash> createState() => _FormCashState();
 }
 
 //classe interna para setar a data vinda do widget wdatetime.dart
@@ -21,7 +22,7 @@ class  DataRadio {
   int selectRadio;
 }
 
-class _WFormCashState extends State<WFormCash> {
+class _FormCashState extends State<FormCash> {
   var formKey = GlobalKey<FormState>();
   
   var ctrlDetalhe = TextEditingController();
@@ -33,7 +34,7 @@ class _WFormCashState extends State<WFormCash> {
   Widget build(BuildContext context) {
      return Scaffold(
        appBar: AppBar(
-         title: Text("${widget.in_or_out}: ${widget.title} "),),
+         title: Text("${widget.inOrOut}: ${widget.title} "),),
        body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -45,7 +46,7 @@ class _WFormCashState extends State<WFormCash> {
             flex: 1,
             child: Column(
               children:<Widget> [
-                widget.in_or_out == "Entrada" ? 
+                widget.inOrOut == "Entrada" ? 
                   Icon(Icons.arrow_upward_outlined, color: Colors.green, size: MediaQuery.of(context).size.width / 7):
                   Icon(Icons.arrow_downward_outlined, color: Colors.red, size: MediaQuery.of(context).size.width / 7),
                  
@@ -91,6 +92,21 @@ class _WFormCashState extends State<WFormCash> {
                 Spacer(),
                  GestureDetector(
                    onTap: (){
+
+                     DocumentReference docReference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("entradas").collection("2022-1").doc("combustivel");
+                     
+                     List data = [
+                         {
+                           'valor' : 400,
+                           'detalhe':'Teste Salvamento 3',
+                           'operacao':'teste operacao 3',
+                           'banco':'teste banco 3',
+                           'parcelas':3,
+
+                         }
+                       ] ;
+                     
+                     docReference.set({"5": FieldValue.arrayUnion(data) } , SetOptions(merge: true));
                      print(dia_radio.data);
                    },
                   child: WBotao(rotulo: "Enviar",))
