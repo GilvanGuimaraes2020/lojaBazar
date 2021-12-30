@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_carrinhos/data/connDataBase/writeData/write_movimento.dart';
 
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_numero.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_texto.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dropdown.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_datetime.dart';
+import 'package:toast/toast.dart';
 
 
 class FormCash extends StatefulWidget {
@@ -25,9 +27,11 @@ class  DataRadio {
 
 class _FormCashState extends State<FormCash> {
   var formKey = GlobalKey<FormState>();
-  
+  String banco;
+  var wdropDown = WDropDown(banco: "nenhum",);
   var ctrlDetalhe = TextEditingController();
   var crtlValor = TextEditingController();  
+  var ctrlParcelas = TextEditingController();
   
   //construtor da classe data e selectRadio
   DataRadio dia_radio = new DataRadio();
@@ -54,7 +58,7 @@ class _FormCashState extends State<FormCash> {
                  WDatetime( data_radio: dia_radio, ),
                  Spacer(),
                  Container(
-                   height: MediaQuery.of(context).size.height / 2,
+                   height: MediaQuery.of(context).size.height / 1.7,
                    margin: EdgeInsets.symmetric(horizontal: 10),
                    decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -85,30 +89,48 @@ class _FormCashState extends State<FormCash> {
                                return "Preencher Campo";
                              }
                            },),
-                           WDropDown()
+                           WCampoNumero(rotulo: "Parcelas", variavel: ctrlParcelas, validator: (value) {
+                             if(value.length != 0){
+                               return null;
+                             } else{
+                               return "Preencher Campo";
+                             }
+                           },),
+                           
+                           wdropDown
                        ],
                      )
                      ),
                  ),
                 Spacer(),
                  GestureDetector(
-                   onTap: (){
-
-                     DocumentReference docReference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("entradas").collection("2022-1").doc("combustivel");
-                     
-                     List data = [
+                   onTap: ()async{
+                     if(formKey.currentState.validate()){
+                       
+                       List data = [
                          {
-                           'valor' : 400,
-                           'detalhe':'Teste Salvamento 3',
-                           'operacao':'teste operacao 3',
-                           'banco':'teste banco 3',
+                           'valor' : 200,
+                           'detalhe':'Teste Salvamento 4',
+                           'operacao':'teste operacao 2',
+                           'banco': wdropDown.banco,
                            'parcelas':3,
+                           'status' : widget.inOrOut
 
                          }
                        ] ;
-                     
-                     docReference.set({"5": FieldValue.arrayUnion(data) } , SetOptions(merge: true));
-                     print(dia_radio.data);
+                       
+
+                     String writeDados = await WriteMovimento().writeDados(categoria: widget.title,  lista: data, data: dia_radio.data);
+                    
+                     Toast.show(
+                       writeDados,context,duration: Toast.LENGTH_LONG, backgroundColor: writeDados=="Salvo com Sucesso"?
+                        Colors.green :
+                        Colors.red);
+
+                     Navigator.of(context).pop();
+
+                     }
+                   
                    },
                   child: WBotao(rotulo: "Enviar",))
               ],

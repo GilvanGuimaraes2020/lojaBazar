@@ -1,5 +1,6 @@
 class Messages{
   String type;
+  
   String message;
 
   Messages(this.type);
@@ -19,6 +20,7 @@ String returnMessage(){
     return message;
 }
 }
+
 
 
 }

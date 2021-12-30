@@ -41,7 +41,7 @@ void main  () async
   runApp(MaterialApp(
 debugShowCheckedModeBanner: false,
 //Inserir menuPage para nao precisar digitar senha quando reloaded, padrao HomePage
-    home: MenuPage  (),
+    home: MenuPage(),
 
     routes: {
       '/telaCadastroCliente' : (context) => CadastroCliente(),     

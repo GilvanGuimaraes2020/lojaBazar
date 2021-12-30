@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class WDropDown extends StatefulWidget {
-  const WDropDown({ Key key }) ;
+  String banco;
+  WDropDown({ Key key, this.banco }) ;
 
   @override
   _WDropDownState createState() => _WDropDownState();
@@ -31,6 +33,7 @@ class _WDropDownState extends State<WDropDown> {
           onChanged: (String newValue){
             setState(() {
               dropValue = newValue;
+              widget.banco = dropValue;
             });
             
           }),

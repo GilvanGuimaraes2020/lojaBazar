@@ -4,7 +4,8 @@ import 'package:loja_carrinhos/view/screens/models/modelsOfDB/m_DB_entradas_cash
 
 class DetailCashPage extends StatefulWidget {
   final String categoria;
-  const DetailCashPage({ Key key, this.categoria }) ;
+  final String inOrOut;
+  const DetailCashPage({ Key key, this.categoria,this.inOrOut }) ;
 
 
   @override
@@ -12,7 +13,7 @@ class DetailCashPage extends StatefulWidget {
 }
 
 class _DetailCashPageState extends State<DetailCashPage> {
-  CollectionReference reference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("entradas").collection("2022-1");
+ 
   DocumentReference docReference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("entradas").collection("2022-1").doc("combustivel");
   List<MDBEntradasCash> entradas = [];
   
@@ -22,25 +23,19 @@ class _DetailCashPageState extends State<DetailCashPage> {
   void initState(){
     super.initState();
 
-  /* reference.snapshots().listen((event) { 
-    setState(() {
-      entradas = event.docs.map((e) => MDBEntradasCash.fromMap(e.id, e.data())).toList();
-    });
-    
-  }); */
-  docReference.get().then((value) {
-    setState(() {
-      
-      Map<String , dynamic> valuesBanco = value.data();
+    docReference.get().then((value) {
+      setState(() {
+        
+        Map<String , dynamic> valuesBanco = value.data();
 
-      valuesBanco.forEach((key, val) {
-        for (var item in val) {
-          entradas.add(MDBEntradasCash.fromMap(key, item));
-        }
+        valuesBanco.forEach((key, val) {
+          for (var item in val) {
+            entradas.add(MDBEntradasCash.fromMap(key, item));
+          }
+        });
+      
       });
-     
     });
-  });
 
   
   }
