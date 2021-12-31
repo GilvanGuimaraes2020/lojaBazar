@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class WDropDown extends StatefulWidget {
-  String banco;
-  WDropDown({ Key key, this.banco }) ;
+  String selectedItem;
+  String selectList;
+  WDropDown({ Key key, this.selectedItem, this.selectList }) ;
 
   @override
   _WDropDownState createState() => _WDropDownState();
 }
 
 class _WDropDownState extends State<WDropDown> {
-  String dropValue = "Selecione";
+  String dropValue = "nenhum";
+  List<String> operacao = ["nenhum", "dinheiro", "credito", "transferencia", "maquina cartao"];
+  List<String> banco = ["nenhum", "santander", "bradesco", "nubank", "caixa federal", "sumup"];
+
+  
   @override
   Widget build(BuildContext context) {
+    
+    List<String> drop = [];
+    if (widget.selectList == "operacao"){drop = operacao;} else {drop = banco;}
+     
     return Container(
       margin: EdgeInsets.all(2),
       padding: EdgeInsets.all(6),
@@ -24,7 +33,7 @@ class _WDropDownState extends State<WDropDown> {
           elevation: 30,
       
           isExpanded: true,
-          items: <String>["Selecione", "Santander", "Bradesco"]
+          items: drop
           .map<DropdownMenuItem<String>>((String e) {
             return DropdownMenuItem<String>
             (value: e,
@@ -33,7 +42,7 @@ class _WDropDownState extends State<WDropDown> {
           onChanged: (String newValue){
             setState(() {
               dropValue = newValue;
-              widget.banco = dropValue;
+              widget.selectedItem = dropValue;
             });
             
           }),

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loja_carrinhos/obsoletos/TelaMenu.dart';
+import 'package:loja_carrinhos/view/screens/menu_page.dart';
 import 'Models.dart';
 
 class AlertaListaTela extends StatefulWidget {
@@ -94,7 +95,7 @@ await  clientes.where('codigo', isEqualTo: codigo.toString())
                                       });
 
                                        Navigator.pushAndRemoveUntil(context, 
-                                      MaterialPageRoute(builder: (context) => Menu()), 
+                                      MaterialPageRoute(builder: (context) => MenuPage()), 
                                       ModalRoute.withName('/'));
                                     }, 
                                     child: Icon(Icons.delete)),
@@ -118,7 +119,7 @@ await  clientes.where('codigo', isEqualTo: codigo.toString())
                                       });
 
                                       Navigator.pushAndRemoveUntil(context, 
-                                      MaterialPageRoute(builder: (context) => Menu()), 
+                                      MaterialPageRoute(builder: (context) => MenuPage()), 
                                       ModalRoute.withName('/'));
                                     }, 
                                     child: Icon(Icons.compare_arrows)),
