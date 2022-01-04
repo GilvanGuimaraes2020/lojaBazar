@@ -27,8 +27,8 @@ class  DataRadio {
 
 class _FormCashState extends State<FormCash> {
   var formKey = GlobalKey<FormState>();
-  var wdropDown = WDropDown(selectedItem: "nenhum", selectList: "banco", );
-  var wdropDownOp = WDropDown(selectedItem: "nenhum", selectList: "operacao",);
+  var dropBanco = WDropDown(selectedItem: "nenhum", selectList: "banco", );
+  var dropPagamento = WDropDown(selectedItem: "nenhum", selectList: "pagamento",);
 
   var ctrlDetalhe = TextEditingController();
   var ctrlValor = TextEditingController();  
@@ -41,10 +41,12 @@ class _FormCashState extends State<FormCash> {
      return Scaffold(
        appBar: AppBar(
          title: Text("${widget.inOrOut}: ${widget.title} "),
+
          backgroundColor: widget.inOrOut == "Entrada" ? 
              Colors.green[200] :
              Colors.red[200],),
        
+
        body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
@@ -88,9 +90,9 @@ class _FormCashState extends State<FormCash> {
                              }
                            },),   
                            Center(child: Text("Forma Montetizaçao"),),
-                           wdropDownOp,
+                           dropPagamento,
                            Center(child: Text("Bancos"),),
-                           wdropDown
+                           dropBanco
                        ],
                      )
                      ),
@@ -103,11 +105,10 @@ class _FormCashState extends State<FormCash> {
                          {
                            'valor' : double.tryParse(ctrlValor.text) ,
                            'detalhe':ctrlDetalhe.text,
-                           'operacao': wdropDownOp.selectedItem,
-                           'banco': wdropDown.selectedItem,
+                           'operacao': dropPagamento.selectedItem,
+                           'banco': dropBanco.selectedItem,
                            'parcelas':double.tryParse(ctrlParcelas.text),
                            'status' : widget.inOrOut
-
                          }
                        ] ;
                        

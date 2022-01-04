@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loja_carrinhos/view/shared/messages/idDocs.dart';
 
 import '../../../view/screens/models/modelsOfDB/m_DB_entradas_cash.dart';
 
@@ -13,13 +14,36 @@ class ReadMovimento{
         Map<String , dynamic> valuesBanco = value.data();
 
         valuesBanco.forEach((key, val) {
-          for (var item in val) {
-            entradas.add(MDBEntradasCash.fromMap(key, item));
-          }
+          
+          
+            for (var item in val) {
+              entradas.add(MDBEntradasCash.fromMap(key, item));
+              
+            }
+          
+          
         });
             
     });
     return entradas;
 
    }
-}
+
+   Future<Map<String, dynamic>> readResumoCaixa()async{
+     DateTime data = DateTime.now();
+     IdDocs ids = IdDocs.ids(data: data);
+      DocumentReference listDB = FirebaseFirestore.instance.collection("MovimentoCaixa").doc('registroContas');
+      Map<String ,dynamic>  map;
+
+      await listDB.get().then((value)  {
+        
+        map =  value.data();
+        
+      });
+      
+      return map;
+
+  }
+
+
+   }

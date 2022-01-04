@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loja_carrinhos/data/connDataBase/writeData/write_controle.dart';
 import 'package:loja_carrinhos/view/shared/messages/idDocs.dart';
 
 
@@ -19,6 +20,9 @@ class WriteMovimento{
     return "Erro ao salvar Dados";
   });
 
+   String retorno = WriteControle().writeDados("Salvo com Sucesso", data, lista);
+    print("Retorno write_controle: $retorno");
+    
     return "Salvo com Sucesso";
 
   }

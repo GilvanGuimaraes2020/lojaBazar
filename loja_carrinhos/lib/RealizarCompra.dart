@@ -640,21 +640,7 @@ onTap: (){
                       'status' : "1",
                       'data' : data
                     }); 
-
                       
-
-                      //Deleta documento registrado na Agenda pois estara salvo em estoque
-                       if (dados!=null) {
-                        
-                         dbAgenda.collection('agenda').doc(dados['idAgenda']).delete();
-                      } 
-                      
-                     /*  // ignore: deprecated_member_use
-                      _scaffoldKey.currentState.showSnackBar(
-                        SnackBar(
-                          content: Text("Dados Salvo com Sucesso!!!"),
-                        )
-                      );*/
 int contItemCaixa = 0;
 
 //listaIDCaixa é formado no initState com os dados das transaçoes no banco 
@@ -677,8 +663,6 @@ if( key.toString().substring(0 , 5) == "compr"){
     }
 }
 }
-
-
                     if(pagAlternativo.length>0){
                       for (int i =0; i<2; i++){
                         if (i == 1) {

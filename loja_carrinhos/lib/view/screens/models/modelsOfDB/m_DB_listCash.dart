@@ -2,21 +2,21 @@
 class ListCashDB{
   
   String title;
-  double inputValue;
-  double mes;
-  double outputValue;
-  bool status;
+  double total;
   
 
-  ListCashDB({this.title, this.inputValue, this.outputValue, this.status, this.mes});
+  ListCashDB({this.title, this.total});
 
-ListCashDB.fromMap(String id, Map<String, dynamic> map){
-
-
-this.title = id ?? "";
-this.outputValue = map['output'];
-this.mes = map['mesReferencia'];
-this.inputValue = map['input'];
-this.status =map['status'];
+ListCashDB.fromMap(String key, dynamic value){
+  
+    print(key);
+    this.title = key;
+    this.total= value['total'];
+  
+  
+}
+ListCashDB.fromList(String title){
+this.title = title;
+this.total = 0;
 }
 }
