@@ -28,12 +28,13 @@ class _WcampoTextoState extends State<WcampoTexto> {
         style: style.style(),
         obscureText: widget.senha,
         validator: widget.validator,
-
+        
         decoration: InputDecoration(
           labelText: widget.rotulo,
           labelStyle: TextStyle(fontSize: 16),
           filled: true,
-          fillColor: Colors.grey[300]
+          fillColor: Colors.grey[300],
+          suffixIcon: widget.icon !=null ? widget.icon : null
         ),
       ),
     );

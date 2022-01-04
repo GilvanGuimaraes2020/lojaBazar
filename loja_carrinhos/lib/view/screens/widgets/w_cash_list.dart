@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:loja_carrinhos/view/screens/models/modelsOfDB/m_DB_listCash.dart';
 import 'package:loja_carrinhos/view/screens/widgets/w_cash.dart';
 
-import '../models/modelsOfDB/m_DB_listCash.dart';
+
 
 class WcashList extends StatelessWidget {
   final List<ListCashDB> listCash;
+  final Map<String , dynamic> map;
 
-  const WcashList({Key key, this.listCash});
+  const WcashList({Key key, this.listCash, this.map});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,9 @@ class WcashList extends StatelessWidget {
          List.generate(
       listCash.length  , (i){
         return Wcash(title: listCash[i].title,
-        status: listCash[i].status,
-        input: listCash[i].inputValue,
-        output: listCash[i].outputValue);
+        
+        total: listCash[i].total,
+        );
       }),
          )
       

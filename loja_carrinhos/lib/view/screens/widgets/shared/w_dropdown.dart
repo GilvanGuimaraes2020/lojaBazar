@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_carrinhos/view/shared/messages/listas.dart';
 
 // ignore: must_be_immutable
 class WDropDown extends StatefulWidget {
@@ -12,16 +13,12 @@ class WDropDown extends StatefulWidget {
 
 class _WDropDownState extends State<WDropDown> {
   String dropValue = "nenhum";
-  List<String> operacao = ["nenhum", "dinheiro", "credito", "transferencia", "maquina cartao"];
-  List<String> banco = ["nenhum", "santander", "bradesco", "nubank", "caixa federal", "sumup"];
-
   
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {  
     
-    List<String> drop = [];
-    if (widget.selectList == "operacao"){drop = operacao;} else {drop = banco;}
-     
+    List<String> drop = ListsShared().selectList(widget.selectList);
+    drop.add('nenhum');
     return Container(
       margin: EdgeInsets.all(2),
       padding: EdgeInsets.all(6),

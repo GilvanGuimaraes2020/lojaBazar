@@ -9,10 +9,10 @@ class InOrOut{
 
 class Wcash extends StatefulWidget {
   final String title;
-  final double input , output, mes;
-  final bool status;
+  final double total;
+  
 
-  const Wcash({ Key key , this.title, this.input, this.output, this.status, this.mes}) ;
+  const Wcash({ Key key , this.title, this.total}) ;
 
   @override
   State<Wcash> createState() => _WcashState();
@@ -20,12 +20,14 @@ class Wcash extends StatefulWidget {
 
 class _WcashState extends State<Wcash> {
  InOrOut retorno = new InOrOut();
+ bool  status ;
  
   
 
   @override
   Widget build(BuildContext context) {
-    
+    if(widget.total > 0){
+      status = true;} else {status = false;}
     return InkWell(
       onTap: (){
         //navegar para pagina detailcash para apresentar detalhes daquela categoria
@@ -63,7 +65,7 @@ class _WcashState extends State<Wcash> {
           height: MediaQuery.of(context).size.height / 5,
           width: MediaQuery.of(context).size.width / 3,
           decoration: BoxDecoration(
-            color: widget.status ? Colors.green[300] :
+            color: status ? Colors.green[300] :
             Colors.red[200],
             borderRadius: BorderRadius.all(Radius.circular(10)),
             boxShadow: [
@@ -80,14 +82,11 @@ class _WcashState extends State<Wcash> {
               Text(widget.title , style: TextStyle(color: Colors.black
               , fontSize: MediaQuery.of(context).size.height / 30 ,
               fontWeight: FontWeight.bold ),),
-              Text("Entrada: ${widget.input}", style: TextStyle(
+              Text("Total: R\$ ${widget.total}", style: TextStyle(
                 color: Colors.black,
                 fontSize: MediaQuery.of(context).size.height / 50),
                  ),
-                Text("Saida: ${widget.output}", style: TextStyle(
-                color: Colors.black,
-                fontSize: MediaQuery.of(context).size.height / 50),
-                 ),
+               
             ],
           ),
         )),
