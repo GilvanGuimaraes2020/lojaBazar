@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import '../../../Models.dart';
 
 class WlistaProdCad extends StatefulWidget {
-  String codProduto;
-  String produto;
+ 
   
-   WlistaProdCad({ Key key, this.codProduto, this.produto }) ;
+   WlistaProdCad({ Key key}) ;
 
   @override
   _WlistaProdCadState createState() => _WlistaProdCadState();
@@ -65,10 +64,10 @@ class _WlistaProdCadState extends State<WlistaProdCad> {
             title: Text('${produtos[index].tipoProduto} , ${produtos[index].marca} , ${produtos[index].modelo}',
          style: TextStyle(fontSize: 12, ),),
          onTap: (){
-           widget.codProduto = produtos[index].codigo;
-           widget.produto = produtos[index].tipoProduto + " " + produtos[index].marca;
+           String codProduto = produtos[index].codigo;
+           String produto = produtos[index].tipoProduto + " " + produtos[index].marca;
            
-           Navigator.pop(contexto);
+           Navigator.pop(contexto , [codProduto , produto]);
          },
           );
           

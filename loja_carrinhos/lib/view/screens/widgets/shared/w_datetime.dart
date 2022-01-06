@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
-import 'package:loja_carrinhos/view/screens/form_cash.dart';
 
 
 // ignore: must_be_immutable
 class WDatetime extends StatefulWidget {
+  DateTime data;
   
-  
-  DataRadio data_radio;
-  WDatetime({ Key key, this.data_radio});
+  WDatetime({ Key key });
 
   @override
   _WDatetimeState createState() => _WDatetimeState();
 }
 
 class _WDatetimeState extends State<WDatetime> {
-  DateTime data;
+  
   @override
   Widget build(BuildContext context) {
       
@@ -30,10 +28,10 @@ class _WDatetimeState extends State<WDatetime> {
             width: MediaQuery.of(context).size.width,
             //padding: EdgeInsets.symmetric(horizontal: 20),
             child: GestureDetector(
-
+              
               onTap: ()async{
                
-                   data = await showDatePicker(
+                   widget.data = await showDatePicker(
                 context: context,
                 initialDate: DateTime.now(), 
                 firstDate: DateTime(2018),
@@ -42,18 +40,19 @@ class _WDatetimeState extends State<WDatetime> {
                  builder: (context, child) => Theme(data: ThemeData.dark(), child: child),               
                  );
 
+                 print(widget.data);
+
                  setState(() {
-                   data;
                    
-                   widget.data_radio.data = data;
+                  widget.data;
                    
                  });
                 
                
             }, 
-            child: WBotao(rotulo: data==null?
+            child: WBotao(rotulo: widget.data==null?
             "Escolher Data":
-            DateFormat("dd/MM/yyyy").format(data),)
+            DateFormat("dd/MM/yyyy").format(widget.data),)
              ),
                     
                     ),

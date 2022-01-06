@@ -3,8 +3,8 @@ import 'package:loja_carrinhos/view/screens/form_cash.dart';
 
 // ignore: must_be_immutable
 class WRadioListInOut extends StatefulWidget {
-  DataRadio operacao;
-  WRadioListInOut({ Key key, this.operacao }) ;
+  
+  WRadioListInOut({ Key key }) ;
 
   @override
   State<WRadioListInOut> createState() => _WRadioListInOutState();
@@ -43,7 +43,7 @@ class _WRadioListInOutState extends State<WRadioListInOut> {
                      onChanged: (val){
                        setState(() {
                          selectedRadio = val;
-                         widget.operacao.selectRadio = selectedRadio;
+                         
                           print(selectedRadio);                         
                           
                        });
@@ -63,7 +63,7 @@ class _WRadioListInOutState extends State<WRadioListInOut> {
                      onChanged: (val){
                        setState(() {
                          selectedRadio = val;
-                         widget.operacao.selectRadio = selectedRadio;
+                         
 
                          print(selectedRadio);
                          

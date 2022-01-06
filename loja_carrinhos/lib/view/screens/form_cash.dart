@@ -6,7 +6,7 @@ import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_numero.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_texto.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dropdown.dart';
-import 'package:loja_carrinhos/view/screens/widgets/w_datetime.dart';
+import 'package:loja_carrinhos/view/screens/widgets/shared/w_datetime.dart';
 import 'package:toast/toast.dart';
 
 
@@ -20,10 +20,7 @@ class FormCash extends StatefulWidget {
 }
 
 //classe interna para setar a data vinda do widget wdatetime.dart
-class  DataRadio {
-  DateTime data; 
-  int selectRadio;
-}
+
 
 class _FormCashState extends State<FormCash> {
   var formKey = GlobalKey<FormState>();
@@ -35,7 +32,7 @@ class _FormCashState extends State<FormCash> {
   var ctrlParcelas = TextEditingController();
   
   //construtor da classe data e selectRadio
-  DataRadio dia_radio = new DataRadio();
+  var dateTime = WDatetime();
   @override
   Widget build(BuildContext context) {
      return Scaffold(
@@ -67,7 +64,7 @@ class _FormCashState extends State<FormCash> {
                            color: Colors.black87
                          ),
                          ),),
-                         WDatetime( data_radio: dia_radio, ),
+                         dateTime,
                           WcampoTexto(rotulo: "Detalhe",senha: false,variavel: ctrlDetalhe,validator: (value){
                             if(value.length ==0){
                               return "Preencher campo";
@@ -113,7 +110,7 @@ class _FormCashState extends State<FormCash> {
                        ] ;
                        
 
-                     String writeDados = await WriteMovimento().writeDados(categoria: widget.title,  lista: data, data: dia_radio.data);
+                     String writeDados = await WriteMovimento().writeDados(categoria: widget.title,  lista: data, data: dateTime.data);
                     
                      Toast.show(
                        writeDados,context,duration: Toast.LENGTH_LONG, backgroundColor: writeDados=="Salvo com Sucesso"?

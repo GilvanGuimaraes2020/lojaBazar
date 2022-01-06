@@ -88,5 +88,12 @@ class Routes{
              (route) => false);
         }
   }
+
+  Routes.rota(BuildContext context, Widget rota){
+    Navigator.push(context, 
+    PageRouteBuilder(
+      transitionDuration: Duration(milliseconds: 100),
+      pageBuilder: (_ , __ , ___) => rota));
+  }
    
 }

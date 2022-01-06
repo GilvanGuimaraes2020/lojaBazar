@@ -26,4 +26,34 @@ class WriteMovimento{
     return "Salvo com Sucesso";
 
   }
+
+  Future<String> getCompra (List compra , String idCompra)async{
+    IdDocs ids = IdDocs.ids(data: compra[0]['data']);
+      String status;
+      List lista = [{
+        "banco" : compra[0]['banco'],
+        "detalhe": idCompra,
+        "operacao":compra[0]['operacao'],
+        "parcelas":0,
+        "status":"Saida",
+        "valor":double.tryParse(compra[0]['valor']) 
+      }        
+      ];
+     CollectionReference reference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("registroContas").collection(ids.idDoc);
+    await reference.doc("compra").set({ids.diaDoc: FieldValue.arrayUnion(lista)},SetOptions(merge: true)  ).then((value){
+    print("salvo com sucesso");
+    status = "salvo com sucesso";
+    
+  })
+  .catchError((onError){
+    
+    status = "Erro ao salvar Dados";
+  });
+
+   String retorno = WriteControle().writeDados(status, compra[0]['data'], lista);
+    print("Retorno write_controle: $retorno");
+    
+    return status;
+
+  }
 }

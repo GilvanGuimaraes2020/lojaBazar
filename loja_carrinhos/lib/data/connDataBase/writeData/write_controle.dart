@@ -11,16 +11,16 @@ class WriteControle{
     if (confirmRegister == "Salvo com Sucesso"){
       IdDocs ids = IdDocs.ids(data: data);
       DocumentReference reference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("CContas").collection(ids.anoDoc).doc(listaDados[0]['banco']);
-            
+
+      //Lê os valores do BD no controle de contas      
       ReadValuesContas().readValuesContas(data , listaDados[0]['banco']).then((value) {
-       
-       
+              
         double status;
+        //para saida multiplica por -1 o valor corrente
         listaDados[0]['status'] == 'Entrada' ? 
         status = listaDados[0]['valor'] * 1:
         status = -1 * listaDados[0]['valor'] ;
-
-
+        //atualiza os dados do banco add ou subtraindo os valores
       reference.set(
         {
         ids.idDoc:value[ids.idDoc] + status,
@@ -46,4 +46,5 @@ class WriteControle{
       return "Erro ao Salvar";
     }
   }
+ 
 }

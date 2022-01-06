@@ -8,6 +8,7 @@ class WcampoTexto extends StatefulWidget {
   final bool senha;
   final IconButton icon;
   final FormFieldValidator<String> validator;
+  
 
   WcampoTexto({ this.variavel, this.rotulo, this.senha, this.icon, this.validator });
 

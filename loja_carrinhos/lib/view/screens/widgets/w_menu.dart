@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_carrinhos/view/screens/menu_page.dart';
 /* import 'package:loja_carrinhos/TelaCadastroCliente.dart';
 import 'package:loja_carrinhos/comentarios.dart';
 import 'package:loja_carrinhos/data/creditSimulation/TelaSimulacaoVenda.dart';
@@ -21,6 +22,7 @@ class Wmenu extends StatelessWidget {
        Routes route = 
        new Routes(route: menu.name , context: context) ;      
        route.changeRoute();
+       
       
       },
       child: Hero(tag: menu.name, 
