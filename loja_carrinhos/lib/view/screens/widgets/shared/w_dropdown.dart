@@ -5,6 +5,7 @@ import 'package:loja_carrinhos/view/shared/messages/listas.dart';
 class WDropDown extends StatefulWidget {
   String selectedItem;
   String selectList;
+    
   WDropDown({ Key key, this.selectedItem, this.selectList }) ;
 
   @override
@@ -20,11 +21,13 @@ class _WDropDownState extends State<WDropDown> {
     List<String> drop = ListsShared().selectList(widget.selectList);
     drop.add('nenhum');
     return Container(
+      decoration: BoxDecoration(),
       margin: EdgeInsets.all(2),
       padding: EdgeInsets.all(6),
       child: Theme(
         data: Theme.of(context).copyWith(backgroundColor: Colors.grey),
         child: DropdownButton(
+          
           value: dropValue,
           borderRadius: BorderRadius.circular(10),
           elevation: 30,
@@ -36,14 +39,41 @@ class _WDropDownState extends State<WDropDown> {
             (value: e,
             child: Text(e),);
           }).toList(), 
-          onChanged: (String newValue){
-            setState(() {
+          onChanged: (String newValue)async{
+            setState(() {              
               dropValue = newValue;
               widget.selectedItem = dropValue;
             });
             
+
+            //newValue == "pagamento alternativo" ??
+          
+            
           }),
       ),
     );
+
+
+  }
+  Future chamaTela(BuildContext context){
+    
+   return showDialog(
+      context: context, 
+      builder: (context){
+        return AlertDialog(
+          title: Text("teste"),
+          actions: [
+            ElevatedButton(
+              onPressed: (){
+                setState(() {
+      
+    });
+                Navigator.pop(context, "retorno para tela" );
+              }, 
+              child: Text("Teste"))
+          ],
+        );
+      });
+    
   }
 }

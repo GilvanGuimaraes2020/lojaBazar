@@ -3,23 +3,23 @@ import 'package:loja_carrinhos/view/screens/widgets/w_lista_prod_cad.dart';
 
 // ignore: must_be_immutable
 class WpopupCadastro extends StatefulWidget {
-  String title;
-  String content;
   
-   WpopupCadastro({ Key key, this.title, this.content}) ;
+   WpopupCadastro({ Key key}) ;
 
   @override
   State<WpopupCadastro> createState() => _WpopupCadastroState();
 }
 
 class _WpopupCadastroState extends State<WpopupCadastro> {
+ var wProduto = WlistaProdCad();
   @override
   Widget build(BuildContext context)  {
+    
     return AlertDialog(
-        title: Text("Escolher produto clicando "),
+        title: Text("Escolher produto "),
 
         //Forma lista com cadastros ja realizados para verificar se ja esta salvo
-        content: WlistaProdCad(),
+        content: wProduto,
         actions: [
           ElevatedButton(
             child: Text("Cadastrar Produto"),
@@ -40,5 +40,7 @@ class _WpopupCadastroState extends State<WpopupCadastro> {
                          ],
                        );
     
+  
   }
+ 
 }

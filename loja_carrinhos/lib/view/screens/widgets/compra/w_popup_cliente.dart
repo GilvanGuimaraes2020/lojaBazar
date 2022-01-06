@@ -4,10 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/TelaCadastroCliente.dart';
 import 'package:loja_carrinhos/view/screens/models/m_clientes.dart';
+import 'package:loja_carrinhos/view/screens/routes/routes.dart';
 
 class WpopupCliente extends StatefulWidget {
-   String name;
-   
+   String name;   
    String codCliente;
    WpopupCliente({ Key key, this.name });
 
@@ -42,10 +42,11 @@ class _WpopupClienteState extends State<WpopupCliente> {
                            ElevatedButton(
                              child: Text("Cadastrar Cliente"),
                              onPressed: (){
-                               Navigator.push(context, 
-                               PageRouteBuilder(
-                                 transitionDuration: Duration(milliseconds: 100),
-                                 pageBuilder: (_ , __ , ___) => CadastroCliente()));
+                               Routes.rota(context, CadastroCliente());
+                               setState(() {
+                                 
+                               });
+                              
                              },
                            )
                          ],
@@ -68,7 +69,7 @@ class _WpopupClienteState extends State<WpopupCliente> {
               widget.codCliente = nomes[index].codigo;
               widget.name = nomes[index].nome ;
               
-              Navigator.of(context).pop();
+              Navigator.pop( context );
             },
           );          
         },
@@ -78,59 +79,3 @@ class _WpopupClienteState extends State<WpopupCliente> {
 
   }
 }
-
-/* cadastroNaoRealizado(String nome){
-       return showDialog(
-                                 context: context,
-                                 builder: (contexto) {
-                                   var telefone = TextEditingController();
-                                   var endereco = TextEditingController();
-                                   var bairro = TextEditingController();
-                                   List<String> salvaCliente = [];
-                                   return AlertDialog(
-                                     title: Text("Entrar com Dados Faltantes"),
-                                     content: SingleChildScrollView(
-                                        child: Column(
-                                         children: [
-                                           TextField(
-                                             decoration: InputDecoration(
-                                               labelText: 'telefone'
-
-                                             ),
-                                             controller: telefone,
-                                           ),
-                                           TextField(
-                                             decoration: InputDecoration(
-                                               labelText: 'endereco'
-                                             ),
-                                             controller: endereco,
-                                           ),
-                                           TextField(
-                                             decoration: InputDecoration(
-                                               labelText: 'bairro'
-                                             ),
-                                             controller: bairro,
-                                           ),
-                                         ],
-                                       ),
-                                     ),
-                                     actions: [
-                                       ElevatedButton(
-
-                                         child: Text("Gravar"),
-                                         onPressed: (){
-                                           salvaCliente = [nome, telefone.text, endereco.text, bairro.text];
-                                           salvarCadastroCliente(salvaCliente);
-                                           codClienteControl.text = (numCodigo +1 ).toString();
-                                           nomeControl.text = nome;
-                                           enderecoControl.text = endereco.text;
-                                          // Navigator.of(contexto).pop();
-                                          Navigator.popUntil(context, ModalRoute.withName('/realizarCompra'));
-                                           
-                                         },
-                                       )
-                                     ],
-                                   );
-                                 },
-                               );
-    } */

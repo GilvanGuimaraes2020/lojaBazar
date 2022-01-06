@@ -10,6 +10,7 @@ class ReadValuesContas{
     Map<String , dynamic> x;
     
     Map mapBanco;
+    //busca no banco os gastos referentes ao mes e o total
     await reference.doc(banco).get().then((value){
       mapBanco = value.data();
     }).catchError((onError){
