@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loja_carrinhos/view/shared/messages/retornoEventos.dart';
 
 import '../../../view/shared/messages/idDocs.dart';
 
@@ -14,10 +15,13 @@ class ReadValuesContas{
     await reference.doc(banco).get().then((value){
       mapBanco = value.data();
     }).catchError((onError){
-      x = {ids.idDoc : 0 , 'total' : 0};
+     return {'erro':RetornoEventos().erro};
     }); 
-
-      x = { ids.idDoc : mapBanco[ids.idDoc], 'total':mapBanco['total']};
+//Caso nao haja campo criado no banco os valores virao setados com 0
+      x = { 
+        ids.idDoc : mapBanco[ids.idDoc]!=null?mapBanco[ids.idDoc]:0, 
+        'total':mapBanco['total']!=null?mapBanco['total']:0};
+    print(x);
     return x ;
   }
 

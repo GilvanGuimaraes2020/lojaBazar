@@ -3,10 +3,12 @@ import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_numero.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dialogs.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dropdown.dart';
+import 'package:toast/toast.dart';
 
 class PagePgtoAlt extends StatefulWidget {
   final double totalCompra;
-  const PagePgtoAlt({ Key key, this.totalCompra });
+  final DateTime data;
+  const PagePgtoAlt({ Key key, this.totalCompra, this.data });
 
   @override
   _PagePgtoAltState createState() => _PagePgtoAltState();
@@ -73,22 +75,24 @@ class _PagePgtoAltState extends State<PagePgtoAlt> {
             onTap: (){
               double soma= 0;
               List page = [];
-              for (var i = 0; i < dropAltBanco.length; i++) {
-                page.add({
+              for (var i = 0; i < 3; i++) {
+                if (pagAltControl[i].text != ""){
+                  page.add({
                   "banco" :dropAltBanco[i].selectedItem,
-                  "pagamento":dropAltPgto[i].selectedItem,
-                  "valor":pagAltControl[i].text
+                  "operacao":dropAltPgto[i].selectedItem,
+                  "valor":double.tryParse(pagAltControl[i].text)
                 }); 
                 soma = soma + double.tryParse(pagAltControl[i].text);
+                }                
+               
               }
+              print(soma);
               if (widget.totalCompra == soma){
                 Navigator.pop(context , page);
               } else{
-                return showDialog(
-                  context: context, 
-                  builder: (context){
-                    return WDialogs();
-                  });
+                print("valores nao batem");
+                Toast.show("Soma dos valores nao batem", context, duration: Toast.LENGTH_LONG, backgroundColor: Colors.red);
+
               }
               
               

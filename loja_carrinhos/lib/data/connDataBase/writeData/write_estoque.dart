@@ -1,22 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:loja_carrinhos/data/connDataBase/writeData/write_movimento.dart';
+import 'package:loja_carrinhos/view/shared/messages/retornoEventos.dart';
 
 class WriteEstoque{
 
- Future<String> writeEstoque(Map<String , dynamic> map , List caixa)async{
+ Future<String> writeEstoque(Map<String , dynamic> map , List caixa, DateTime data)async{
    String status;
    String id;
+   //Salvamento no banco teste, o qual sera trocado pelo estoque
    CollectionReference reference = FirebaseFirestore.instance.collection("teste");
 
   await reference.add(map).then((value) {
-    status = "Salvo com Sucesso";
+    status = RetornoEventos().salvo;
     id = value.id;
   }).catchError((onError){
-     status = "Erro ao salvar";
+    print("Erro write_estoque");
+     status = RetornoEventos().erro;
    });
 
-   if (status == "Salvo com Sucesso"){
-     status = await WriteMovimento().getCompra(caixa , id);
+   if (status == RetornoEventos().salvo){
+     status = await WriteMovimento().getCompra(caixa , id, data);
    }
 
    return status;
