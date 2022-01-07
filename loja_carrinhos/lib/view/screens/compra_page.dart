@@ -132,41 +132,53 @@ class _CompraPageState extends State<CompraPage> {
              
              GestureDetector(
                onTap: ()async{
-                 if (dropPag.selectedItem == "pagamento alternativo"){
-                 
-                   final result = await Navigator.push(
-                     context, 
-                     PageRouteBuilder(
-                       transitionDuration: Duration(milliseconds: 100),
-                       pageBuilder: (_ , __ , ___)=>PagePgtoAlt(totalCompra: double.tryParse(valorControl.text) ,)));
-                        
-                 } else{
+                 List caixa = [];
                    Map<String, dynamic> mapEstoque = {
                      "resCliente" :nomeControl.text,
                     "codCliente" :codCliente,
                      "resProduto" : produtoControl.text,
                      "codProduto" : codProd,
-                     "valor" : valorControl.text,
-                     "status" : "0",
+                     "valor" : double.tryParse(valorControl.text) ,
+                     "status" : "1",
                      "data" : dataTime.data,
                      "cor" : corControl.text,
                      "sexo" : dropSexo.selectedItem,
                      
                    };
-                   List caixa = [
+
+                 if (dropPag.selectedItem == "pagamento alternativo"){
+                 print(produtoControl.text);
+                   final result = await Navigator.push(
+                     context, 
+                     PageRouteBuilder(
+                       transitionDuration: Duration(milliseconds: 100),
+                       pageBuilder: (_ , __ , ___)=>PagePgtoAlt(totalCompra: double.tryParse(valorControl.text) ,)));
+                        print(result);
+                         for (var item in result) {
+                            caixa.add(
+                       {                                                
+                         "banco" :item['banco'],
+                         "operacao" :item['operacao'],
+                         "valor":item['valor'],
+                         "status" : "Saida"
+                                             
+                      });
+                         }                         
+                        
+                 } else{
+                  
+                    caixa = [
                        {    
-                         "data" : dataTime.data,                     
+                                             
                          "banco" :dropBanco.selectedItem,
                          "operacao" :dropPag.selectedItem,
-                         "valor":valorControl.text
-                         
+                         "valor":double.tryParse(valorControl.text),
+                         "status" : "Saida"
                       }
-                     ];
-
-                    String saved = await  WriteEstoque().writeEstoque(mapEstoque , caixa);
+                     ]; 
                 
                  }
-                               
+                    String saved = await  WriteEstoque().writeEstoque(mapEstoque , caixa, dataTime.data);           
                  
                },
                child: WBotao(
