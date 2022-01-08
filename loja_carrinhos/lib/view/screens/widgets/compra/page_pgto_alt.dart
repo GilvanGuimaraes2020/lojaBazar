@@ -80,7 +80,7 @@ class _PagePgtoAltState extends State<PagePgtoAlt> {
                   page.add({
                   "banco" :dropAltBanco[i].selectedItem,
                   "operacao":dropAltPgto[i].selectedItem,
-                  "valor":double.tryParse(pagAltControl[i].text)
+                  "valor":pagAltControl[i].text
                 }); 
                 soma = soma + double.tryParse(pagAltControl[i].text);
                 }                

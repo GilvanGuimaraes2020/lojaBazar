@@ -8,9 +8,9 @@ class WcampoTexto extends StatefulWidget {
   final bool senha;
   final IconButton icon;
   final FormFieldValidator<String> validator;
-  
+  bool enable = true; 
 
-  WcampoTexto({ this.variavel, this.rotulo, this.senha, this.icon, this.validator });
+  WcampoTexto({ this.variavel, this.rotulo, this.senha, this.icon, this.validator, this.enable });
 
   @override
   State<WcampoTexto> createState() => _WcampoTextoState();
@@ -29,7 +29,7 @@ class _WcampoTextoState extends State<WcampoTexto> {
         style: style.style(),
         obscureText: widget.senha,
         validator: widget.validator,
-        
+        enabled: widget.enable,
         decoration: InputDecoration(
           labelText: widget.rotulo,
           labelStyle: TextStyle(fontSize: 16),
