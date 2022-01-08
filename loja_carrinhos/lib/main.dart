@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loja_carrinhos/ListaProdutos.dart';
 import 'package:loja_carrinhos/MovimentoCaixa.dart';
-import 'package:loja_carrinhos/RealizarVenda.dart';
+import 'package:loja_carrinhos/obsoletos/RealizarVenda.dart';
 
 //import 'package:loja_carrinhos/TelaAgendamento.dart';
 import 'package:loja_carrinhos/TelaCadastroCliente.dart';
@@ -24,7 +24,6 @@ import 'package:loja_carrinhos/alertaListaVendas.dart';
 import 'package:loja_carrinhos/alertaPeriodoVenda.dart';
 import 'package:loja_carrinhos/comentarios.dart';
 
-import 'package:loja_carrinhos/realizarCompra.dart';
 //import 'package:loja_carrinhos/TelaAgenda.dart';
 import 'package:loja_carrinhos/relatorio.dart';
 import 'package:loja_carrinhos/view/screens/home_page.dart';
@@ -47,7 +46,7 @@ debugShowCheckedModeBanner: false,
       '/telaCadastroCliente' : (context) => CadastroCliente(),     
       //'/agendamento' : (context) => TelaAgendamento(),
       '/telaLogin' : (context) => TelaLogin(),
-      '/realizarCompra' : (context) => RealizarCompra(),
+      
       //'/agenda' : (context) => TelaAgenda(),
       //'/teste' : (context) => TesteMudarData(),
       '/telaAlerta' : (context) => AlertaListaTela(),

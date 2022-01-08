@@ -22,8 +22,8 @@ class WriteControle{
           double status;
           //para saida multiplica por -1 o valor corrente
           item['status'] == 'Entrada' ? 
-          status = item['valor'] * 1:
-          status = -1 * item['valor'] ;
+          status = double.tryParse(item['valor'] * 1) :
+          status = -1 * double.tryParse(item['valor'] ) ;
           //atualiza os dados do banco add ou subtraindo os valores
          reference.set(
           {

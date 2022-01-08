@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/data/connDataBase/writeData/write_estoque.dart';
 import 'package:loja_carrinhos/view/screens/widgets/compra/page_pgto_alt.dart';
-import 'package:loja_carrinhos/view/screens/widgets/compra/w_popup_cliente.dart';
+import 'package:loja_carrinhos/view/screens/widgets/shared/w_popup_cliente.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_texto.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dropdown.dart';
@@ -138,7 +138,7 @@ class _CompraPageState extends State<CompraPage> {
                     "codCliente" :codCliente,
                      "resProduto" : produtoControl.text,
                      "codProduto" : codProd,
-                     "valor" : double.tryParse(valorControl.text) ,
+                     "valor" : valorControl.text ,
                      "status" : "1",
                      "data" : dataTime.data,
                      "cor" : corControl.text,
@@ -172,7 +172,7 @@ class _CompraPageState extends State<CompraPage> {
                                              
                          "banco" :dropBanco.selectedItem,
                          "operacao" :dropPag.selectedItem,
-                         "valor":double.tryParse(valorControl.text),
+                         "valor":valorControl.text,
                          "status" : "Saida"
                       }
                      ]; 
