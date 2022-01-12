@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class WBotao extends StatelessWidget {
   final String rotulo;
-  WBotao({this.rotulo});
+  Color cor = Colors.blue;
+  WBotao({this.rotulo, this.cor});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class WBotao extends StatelessWidget {
       height: MediaQuery.of(context).size.height/12,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: Colors.blue,
+        color: cor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
         boxShadow: [BoxShadow(
           color: Colors.blue[200],

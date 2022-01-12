@@ -34,44 +34,46 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         padding: EdgeInsets.all(30),
-        child: Form(
-          key: formState,
-          child: Column(
-            children: [
-              WcampoTexto(variavel: ctrlLogin, rotulo: "Login",senha: false,validator: (value){
-                if(value.length == 0){
-                  return "Entre com um email valido";
-                } else{
-                  return null;
-                }
-              },), 
-              WcampoTexto(variavel: ctrlSenha, rotulo: "Senha",senha: true,validator: (value){
-                if(value.length == 0){
-                  return "Entre com um email valido";
-                } else{
-                  return null;
-                }
-              },),
-              GestureDetector(
-                child: WBotao(rotulo: "Entrar"),
-                onTap: (){
-              login();
-              },
-              ) ,
-              SizedBox(
-                height: 20,
-              ),
+        child: SingleChildScrollView(
+          child: Form(
+            key: formState,
+            child: Column(
+              children: [
+                WcampoTexto(variavel: ctrlLogin, rotulo: "Login",senha: false,validator: (value){
+                  if(value.length == 0){
+                    return "Entre com um email valido";
+                  } else{
+                    return null;
+                  }
+                },), 
+                WcampoTexto(variavel: ctrlSenha, rotulo: "Senha",senha: true,validator: (value){
+                  if(value.length == 0){
+                    return "Entre com um email valido";
+                  } else{
+                    return null;
+                  }
+                },),
+                GestureDetector(
+                  child: WBotao(rotulo: "Entrar"),
+                  onTap: (){
+                login();
+                },
+                ) ,
+                SizedBox(
+                  height: 20,
+                ),
+                
+                GestureDetector(
+                  child: WBotao(rotulo: "Cadastrar"),
+        
+                  onTap: (){
+                cadastro();
+                   },
+                )
+                
+              ],
               
-              GestureDetector(
-                child: WBotao(rotulo: "Cadastrar"),
-
-                onTap: (){
-              cadastro();
-                 },
-              )
-              
-            ],
-            
+            ),
           ),
         ),
       ),

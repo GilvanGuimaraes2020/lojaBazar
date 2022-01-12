@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class WCampoNumero extends StatefulWidget {
   final variavel;
   final String rotulo;
-  final FormFieldValidator<String> validator;
+  final validator;
 
   const WCampoNumero({ Key key, this.rotulo, this.variavel, this.validator });
 

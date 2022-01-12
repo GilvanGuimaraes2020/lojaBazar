@@ -69,13 +69,14 @@ class _WpopupProdutoState extends State<WpopupProduto> {
             title: Text("Nome: ${lista[index].resProduto}, Cor: ${lista[index].cor} "),
             subtitle: Text("Preço: ${lista[index].valor}"),
             onTap: (){
-              List retornoPop = [
+              Map<String, dynamic> retornoPop = 
                 {
                   "idProduto" : lista[index].id,
                   "resProduto" : lista[index].resProduto,
-                  "valor" : double.tryParse(lista[index].valor) 
+                  "valor" : double.tryParse(lista[index].valor),
+                  "dataCompra":lista[index].data
                 }
-              ];
+              ;
               
               Navigator.pop( context , retornoPop );
             },

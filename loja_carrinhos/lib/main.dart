@@ -11,7 +11,7 @@ import 'package:loja_carrinhos/MovimentoCaixa.dart';
 import 'package:loja_carrinhos/obsoletos/RealizarVenda.dart';
 
 //import 'package:loja_carrinhos/TelaAgendamento.dart';
-import 'package:loja_carrinhos/TelaCadastroCliente.dart';
+import 'package:loja_carrinhos/obsoletos/TelaCadastroCliente.dart';
 import 'package:loja_carrinhos/TelaCadastroProduto.dart';
 import 'package:loja_carrinhos/TelaEstoque.dart';
 

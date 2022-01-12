@@ -8,6 +8,9 @@ import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_texto.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dropdown.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_datetime.dart';
 import 'package:loja_carrinhos/view/screens/widgets/compra/w_popup_cadastro.dart';
+import 'package:loja_carrinhos/view/shared/messages/retornoEventos.dart';
+import 'package:loja_carrinhos/view/shared/validation.dart';
+import 'package:toast/toast.dart';
 
 class CompraPage extends StatefulWidget {
   @override
@@ -15,7 +18,9 @@ class CompraPage extends StatefulWidget {
 }
 
 class _CompraPageState extends State<CompraPage> {
- 
+ //variaveis de estado e indicadores
+ var globalKey = GlobalKey<FormState>();
+
   var nomeControl = TextEditingController();
   var produtoControl = TextEditingController();
   Icon icon = Icon(Icons.search);
@@ -47,150 +52,159 @@ class _CompraPageState extends State<CompraPage> {
       body: SingleChildScrollView(
               child: Container(
           padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-
- //Campo para inserir nome do cliente           
-             WcampoTexto(rotulo: "Nome Cliente", 
-             senha: false, variavel: nomeControl,
-             icon: IconButton(onPressed: ()async{
-               //popup para escolher cliente cadastrado
-               var popCliente = WpopupCliente(name: nomeControl.text);
-                await showDialog(
-                     context: context,
-                     builder: (context) {
-                       return popCliente;
-                     },
-                   );
-                   
-              setState(() {
-                
-                  codCliente = popCliente.codCliente; //Atribui cod do cliente para variavel
-                  nomeControl.text = popCliente.name;//Atribui para o campo, nome de acordo banco
-                  icon = codCliente == null ? Icon(Icons.thumb_down , color: Colors.red,):
-                                              Icon(Icons.thumb_up_alt,color: Colors.green,);
-                
-              });
-
-             }, icon: icon), 
-             ), 
-  
-//Campo para inserir nome produto. Chama pop-up para escolha de produto ou cadastro de novo produto
-             WcampoTexto(rotulo: 'Produto' ,
-             variavel: produtoControl, senha: false,
-             icon: IconButton(
-               onPressed: ()async{
-                
-                 final result = await showDialog(
-                     context: context,
-                     builder: (context) {
-                       return WpopupCadastro();
-                     },
-                   );
-                   print(result);
-
-                   setState(() {
-                     if (result !=null){
-                       produtoControl.text = result[1];
-                       codProd = result[0];
-                       iconProd = Icon(Icons.thumb_up , color: Colors.green,);
-                     } else{
-                       iconProd = Icon(Icons.thumb_down , color: Colors.red,);
-                     }                    
-                     
-                   });
-               }, 
-               icon: iconProd),),
-            
- //Campo para inserir cor ou detalhe do produto            
-            WcampoTexto(rotulo: "cor ", senha: false,
-            variavel: corControl,),
-
- //Campo para inserir valor do produto            
-              WcampoTexto(rotulo: "valor", senha: false,
-              variavel: valorControl,),
-             
-//Apresenta opçoes para o sexo do produto             
-             dropSexo,
-             
-//Apresenta opçoes para o tipo de pagamento
-              Builder(
-                builder: (context) {
-                  return dropPag;
-                }
-              ),
-                
-//Apresenta local para movimento monetario
-              dropBanco,
-//Opçao quando pagamento for alternativo
-              
-//calendario para escolher data
-              dataTime,
-             
-//Apresenta seleçao de bancos, caso tipo de pagamento seja = transferencia            
-             
-             GestureDetector(
-               onTap: ()async{
-                 List caixa = [];
-                   Map<String, dynamic> mapEstoque = {
-                     "resCliente" :nomeControl.text,
-                    "codCliente" :codCliente,
-                     "resProduto" : produtoControl.text,
-                     "codProduto" : codProd,
-                     "valor" : valorControl.text ,
-                     "status" : "1",
-                     "data" : dataTime.data,
-                     "cor" : corControl.text,
-                     "sexo" : dropSexo.selectedItem,
-                     
-                   };
-
-                 if (dropPag.selectedItem == "pagamento alternativo"){
-                 print(produtoControl.text);
-                   final result = await Navigator.push(
-                     context, 
-                     PageRouteBuilder(
-                       transitionDuration: Duration(milliseconds: 100),
-                       pageBuilder: (_ , __ , ___)=>PagePgtoAlt(totalCompra: double.tryParse(valorControl.text) ,)));
-                        print(result);
-                         for (var item in result) {
-                            caixa.add(
-                       {                                                
-                         "banco" :item['banco'],
-                         "operacao" :item['operacao'],
-                         "valor":item['valor'],
-                         "status" : "Saida"
-                                             
-                      });
-                         }                         
-                        
-                 } else{
-                  
-                    caixa = [
-                       {    
-                                             
-                         "banco" :dropBanco.selectedItem,
-                         "operacao" :dropPag.selectedItem,
-                         "valor":valorControl.text,
-                         "status" : "Saida"
-                      }
-                     ]; 
-                
-                 }
-                    String saved = await  WriteEstoque().writeEstoque(mapEstoque , caixa, dataTime.data);           
-                 
+          child: Form(
+            key: globalKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+          
+           //Campo para inserir nome do cliente           
+               WcampoTexto(rotulo: "Nome Cliente", 
+               senha: false, variavel: nomeControl,
+               validator: (value){
+                 return Validation().campoTexto(value);
                },
-               child: WBotao(
-                 rotulo: "Salvar",
-               ))
-            ],
+               icon: IconButton(onPressed: ()async{
+                 //popup para escolher cliente cadastrado
+                 var popCliente = WpopupCliente(name: nomeControl.text);
+                  await showDialog(
+                       context: context,
+                       builder: (context) {
+                         return popCliente;
+                       },
+                     );
+                     
+                setState(() {
+                    codCliente = popCliente.codCliente; //Atribui cod do cliente para variavel
+                    nomeControl.text = popCliente.name;//Atribui para o campo, nome de acordo banco
+                    icon = codCliente == null ? Icon(Icons.thumb_down , color: Colors.red,):
+                                                Icon(Icons.thumb_up_alt,color: Colors.green,);
+                  
+                });
+          
+               }, icon: icon), 
+               ), 
+            
+          //Campo para inserir nome produto. Chama pop-up para escolha de produto ou cadastro de novo produto
+               WcampoTexto(rotulo: 'Produto' ,
+               variavel: produtoControl, senha: false,
+                icon: IconButton(
+                 onPressed: ()async{
+                  
+                   final result = await showDialog(
+                       context: context,
+                       builder: (context) {
+                         return WpopupCadastro();
+                       },
+                     );
+                     print(result);
+          
+                     setState(() {
+                       if (result !=null){
+                         produtoControl.text = result[1];
+                         codProd = result[0];
+                         iconProd = Icon(Icons.thumb_up , color: Colors.green,);
+                       } else{
+                         iconProd = Icon(Icons.thumb_down , color: Colors.red,);
+                       }                    
+                       
+                     });
+                 }, 
+                 icon: iconProd),),
+              
+           //Campo para inserir cor ou detalhe do produto            
+              WcampoTexto(rotulo: "cor ", senha: false,
+              variavel: corControl, validator: (value){
+                return Validation().campoTexto(value);
+              },),
+          
+           //Campo para inserir valor do produto            
+                WcampoTexto(rotulo: "valor", senha: false,
+                variavel: valorControl, validator: (value){
+                  return Validation().campoMoeda(value);
+                },),
+               
+          //Apresenta opçoes para o sexo do produto             
+               dropSexo,
+               
+          //Apresenta opçoes para o tipo de pagamento
+                dropPag,
+
+          //Apresenta local para movimento monetario
+                dropBanco,
+
+              //calendario para escolher data
+                dataTime,
+              
+              ],
+            ),
           ),
 
         ),
       ),
 
     backgroundColor: Colors.brown[100],
+    persistentFooterButtons: [
+      GestureDetector(
+                 onTap: ()async{
+                   if (globalKey.currentState.validate()){
+                     
+                   List caixa = [];
+                     Map<String, dynamic> mapEstoque = {
+                       "resCliente" :nomeControl.text,
+                      "codCliente" :codCliente,
+                       "resProduto" : produtoControl.text,
+                       "codProduto" : codProd,
+                       "valor" : valorControl.text ,
+                       "status" : "1",
+                       "data" : dataTime.data,
+                       "cor" : corControl.text,
+                       "sexo" : dropSexo.selectedItem,                       
+                     };
+          
+                   if (dropPag.selectedItem == "pagamento alternativo"){
+                   print(produtoControl.text);
+                     final result = await Navigator.push(
+                       context, 
+                       PageRouteBuilder(
+                         transitionDuration: Duration(milliseconds: 100),
+                         pageBuilder: (_ , __ , ___)=>PagePgtoAlt(totalCompra: double.tryParse(valorControl.text) ,)));
+                          print(result);
+                           for (var item in result) {
+                              caixa.add(
+                         {                                                
+                           "banco" :item['banco'],
+                           "operacao" :item['operacao'],
+                           "valor":item['valor'],
+                           "status" : "Saida"
+                                               
+                        });
+                           }                      
+                          
+                   } else{                    
+                      caixa = [
+                         {                   
+                           "banco" :dropBanco.selectedItem,
+                           "operacao" :dropPag.selectedItem,
+                           "valor":valorControl.text,
+                           "status" : "Saida"
+                        }
+                       ]; 
+                  
+                   }
+                      String saved = await  WriteEstoque().writeEstoque(mapEstoque , caixa, dataTime.data);           
+                      if(saved == RetornoEventos().salvo){
+                        Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, backgroundColor: Colors.green);
+                        }else{
+                        Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, backgroundColor: Colors.red);
+                     }
+                     Navigator.pop(context);
+                   }
+                 },
+                 child: WBotao(
+                   rotulo: "Salvar",
+                 ))
+    ],
     );
   }
 }

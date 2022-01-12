@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:loja_carrinhos/obsoletos/TelaMenu.dart';
 import 'package:loja_carrinhos/view/screens/menu_page.dart';
 import 'Models.dart';
 

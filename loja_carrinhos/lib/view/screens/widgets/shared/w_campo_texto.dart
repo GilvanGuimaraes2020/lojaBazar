@@ -7,7 +7,7 @@ class WcampoTexto extends StatefulWidget {
   final String rotulo;
   final bool senha;
   final IconButton icon;
-  final FormFieldValidator<String> validator;
+  final  validator;
   bool enable = true; 
 
   WcampoTexto({ this.variavel, this.rotulo, this.senha, this.icon, this.validator, this.enable });
@@ -25,6 +25,7 @@ class _WcampoTextoState extends State<WcampoTexto> {
       padding: EdgeInsets.all(6),
       margin: EdgeInsets.all(2),
       child: TextFormField(
+        
         controller: widget.variavel,
         style: style.style(),
         obscureText: widget.senha,

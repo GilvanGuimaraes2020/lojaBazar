@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loja_carrinhos/data/connDataBase/writeData/write_resumo_caixa.dart';
 import 'package:loja_carrinhos/view/shared/messages/idDocs.dart';
 
 import '../../../view/screens/models/modelsOfDB/m_DB_entradas_cash.dart';
@@ -40,6 +41,14 @@ class ReadMovimento{
         map =  value.data();
         
       });
+
+        if (ids.diaDoc == "11" ){
+        if (map['verificador'] == true){ 
+          WriteResumoCaixa().resetarValores(); 
+        }
+      } else if(ids.diaDoc =="12"){
+          WriteResumoCaixa().ativarVerificador();
+      }
       
       return map;
 

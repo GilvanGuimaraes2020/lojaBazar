@@ -4,6 +4,7 @@ class ListsShared{
     'beleza',
     'combustivel',
     'contas',
+    'compra',
     'doacao',
     'emprestimo',
     'estudo',
@@ -15,7 +16,8 @@ class ListsShared{
     'saude',
     'servicos',
     'utilidades',
-    'veiculo'
+    'veiculo',
+    'venda'
 
   ];
   List<String> dropBancos =[
@@ -35,7 +37,8 @@ class ListsShared{
   ];
   List<String> dropSexo =[
     'masculino',
-    'feminino'
+    'feminino',
+    'unissex'
   ];
 //funçao para selecionar lista para dropdown
   List<String> selectList(String item){
