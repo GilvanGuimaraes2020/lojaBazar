@@ -1,18 +1,16 @@
 import 'package:flutter/cupertino.dart';
 
-import 'package:loja_carrinhos/obsoletos/RealizarCompra.dart';
-import 'package:loja_carrinhos/obsoletos/RealizarVenda.dart';
 import 'package:loja_carrinhos/TelaCadastroProduto.dart';
 import 'package:loja_carrinhos/TelaEstoque.dart';
 import 'package:loja_carrinhos/alertaPeriodoVenda.dart';
 import 'package:loja_carrinhos/relatorio.dart';
+import 'package:loja_carrinhos/view/screens/cadastro_cliente_page.dart';
 import 'package:loja_carrinhos/view/screens/cash_page.dart';
 import 'package:loja_carrinhos/view/screens/compra_page.dart';
 import 'package:loja_carrinhos/view/screens/home_page.dart';
 import 'package:loja_carrinhos/view/screens/menu_page.dart';
 import 'package:loja_carrinhos/view/screens/venda_page.dart';
 
-import '../../../TelaCadastroCliente.dart';
 import '../../../comentarios.dart';
 import '../../../data/creditSimulation/TelaSimulacaoVenda.dart';
 
@@ -36,7 +34,7 @@ class Routes{
            Navigator.push(context,
            PageRouteBuilder(
              transitionDuration: Duration(milliseconds: 100),
-             pageBuilder: (_ , __ , ___) => CadastroCliente()));
+             pageBuilder: (_ , __ , ___) => CadastroClientePage()));
         } else if(route == 'produto'){
           Navigator.push(context,
            PageRouteBuilder(

@@ -2,13 +2,18 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:loja_carrinhos/TelaCadastroCliente.dart';
+import 'package:loja_carrinhos/data/connDataBase/writeData/write_cliente.dart';
+import 'package:loja_carrinhos/obsoletos/TelaCadastroCliente.dart';
+import 'package:loja_carrinhos/view/screens/cadastro_cliente_page.dart';
 import 'package:loja_carrinhos/view/screens/models/m_clientes.dart';
 import 'package:loja_carrinhos/view/screens/routes/routes.dart';
+
 
 class WpopupCliente extends StatefulWidget {
    String name;   
    String codCliente;
+   String telefone;
+   String idCliente;
    WpopupCliente({ Key key, this.name });
 
   @override
@@ -42,7 +47,7 @@ class _WpopupClienteState extends State<WpopupCliente> {
                            ElevatedButton(
                              child: Text("Cadastrar Cliente"),
                              onPressed: (){
-                               Routes.rota(context, CadastroCliente());
+                               Routes.rota(context, CadastroClientePage());
                                setState(() {
                                  
                                });
@@ -65,11 +70,30 @@ class _WpopupClienteState extends State<WpopupCliente> {
             return ListTile(
             title: Text("Nome: ${nomes[index].nome}, ${nomes[index].endereco} "),
             subtitle: Text("Telefone: ${nomes[index].telefone}"),
+            trailing: IconButton(
+              onPressed: (){
+                String result = WriteCliente().deleteCliente(nomes[index].id);
+                //retorno da açao no banco
+                Navigator.pop(context , [result]);
+              }, 
+              icon: Icon(Icons.delete)),
             onTap: (){
-              widget.codCliente = nomes[index].codigo;
+              List<Map<String , dynamic>> retorno =[
+                {
+                "codigo" : nomes[index].codigo,
+                "nome" : nomes[index].nome ,
+                "telefone" : nomes[index].telefone,
+                "bairro" : nomes[index].bairro,
+                "id" : nomes[index].id,
+                "endereco" : nomes[index].endereco
+                }
+              ]; 
+
+              widget.codCliente = nomes[index].id;
               widget.name = nomes[index].nome ;
-              
-              Navigator.pop( context );
+              widget.telefone= nomes[index].telefone;
+              widget.idCliente=nomes[index].id;
+              Navigator.pop( context , retorno);
             },
           );          
         },

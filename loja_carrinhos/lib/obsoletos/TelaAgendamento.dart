@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 
-import 'Models.dart';
+import '../Models.dart';
 
 
 class TelaAgendamento extends StatefulWidget {

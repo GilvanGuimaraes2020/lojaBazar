@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/data/connDataBase/writeData/write_movimento.dart';
+import 'package:loja_carrinhos/data/connDataBase/writeData/write_resumo_caixa.dart';
 
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_numero.dart';
@@ -109,6 +110,7 @@ class _FormCashState extends State<FormCash> {
                        
 
                      String writeDados = await WriteMovimento().writeDados(categoria: widget.title,  lista: data, data: dateTime.data);
+                     String writeResumo = WriteResumoCaixa().atualizaValores(widget.title, double.tryParse(ctrlValor.text), widget.inOrOut ,dateTime.data);
                     
                      Toast.show(
                        writeDados,context,duration: Toast.LENGTH_LONG, backgroundColor: writeDados=="Salvo com Sucesso"?

@@ -1,9 +1,13 @@
+import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/AtualizaCaixa.dart';
 
 import 'package:loja_carrinhos/Models.dart';
+import 'package:loja_carrinhos/data/connDataBase/writeData/write_venda.dart';
+import 'package:loja_carrinhos/view/screens/widgets/compra/page_pgto_alt.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_numero.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_texto.dart';
@@ -11,6 +15,10 @@ import 'package:loja_carrinhos/view/screens/widgets/shared/w_datetime.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dropdown.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_popup_cliente.dart';
 import 'package:loja_carrinhos/view/screens/widgets/venda/w_pop_produtos.dart';
+import 'package:loja_carrinhos/view/shared/validation.dart';
+import 'package:toast/toast.dart';
+
+import '../shared/messages/retornoEventos.dart';
 
 class PageVenda extends StatefulWidget {
   @override
@@ -18,13 +26,14 @@ class PageVenda extends StatefulWidget {
 }
 
 class _PageVendaState extends State<PageVenda> {
+//Variaveis de estado
+  var globalKey = GlobalKey<FormState>();
+  Map<String , bool> valIcon ;
 //Variaveis para carregar dados dos bancos cliente e estoque  
-   String idProduto;
    String idCliente;
-   String dataCompra; 
    String codCliente ;
-   String codProd;
    String telefone;
+   Map retEstoque;
 //Variaveis de controle e indicaçao
    Icon icon = Icon(Icons.search);
    Icon iconProd = Icon(Icons.search);
@@ -48,82 +57,155 @@ class _PageVendaState extends State<PageVenda> {
       body: SingleChildScrollView(
           child: Container(
           padding: EdgeInsets.all(10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-
-              //Campo para inserir nome do cliente 
-              WcampoTexto(rotulo: "Nome Cliente", 
-             senha: false, variavel: nomeControl,
-             icon: IconButton(onPressed: ()async{
-               //popup para escolher cliente cadastrado
-               var popCliente = WpopupCliente(name: nomeControl.text);
-                await showDialog(
-                     context: context,
-                     builder: (context) {
-                       return popCliente;
-                     },
-                   );
-                   
-              setState(() {
-                
-                  codCliente = popCliente.codCliente; //Atribui cod do cliente para variavel
-                  nomeControl.text = popCliente.name;//Atribui para o campo, nome de acordo banco
-                  icon = codCliente == null ? Icon(Icons.thumb_down , color: Colors.red,):
-                                              Icon(Icons.thumb_up_alt,color: Colors.green,);
-                
-              });
-
-             }, icon: icon), 
-             ), 
-
-             //Campo para inserir nome produto. Chama pop-up para escolha de produto ou cadastro de novo produto
-             WcampoTexto(rotulo: 'Produto' ,
-             variavel: produtoControl, senha: false,
-             icon: IconButton(
-               onPressed: ()async{
-                
-                 final result = await showDialog(
-                     context: context,
-                     builder: (context) {
-                       return WpopupProduto(produto: produtoControl.text,);
-                     },
-                   );
-                   print(result);
-
-                   setState(() {
-                     if (result !=null){
-                       produtoControl.text = result[1];
-                       codProd = result[0];
-                       iconProd = Icon(Icons.thumb_up , color: Colors.green,);
-                     } else{
-                       iconProd = Icon(Icons.thumb_down , color: Colors.red,);
-                     }                    
+          child: Form(
+            key: globalKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+          
+                //Campo para inserir nome do cliente 
+                WcampoTexto(rotulo: "Nome Cliente", 
+               senha: false, variavel: nomeControl,
+               
+               icon: IconButton(onPressed: ()async{
+                 //popup para escolher cliente cadastrado
+                 var popCliente = WpopupCliente(name: nomeControl.text);
+                  await showDialog(
+                       context: context,
+                       builder: (context) {
+                         return popCliente;
+                       },
+                     );
                      
-                   });
-               }, 
-               icon: iconProd),),
-
-            WcampoTexto(rotulo: "Valor venda", variavel: valorCtrl,
-            enable: true, senha: false,),
-
-            WCampoNumero(rotulo: "parcelas",variavel: parcelasControl,),
-
-            dropPag,
-
-            dropBanco,
-            
-         datetime,
+                setState(() {
+                  
+                    idCliente = popCliente.idCliente;
+                    telefone = popCliente.telefone;
+                    nomeControl.text = popCliente.name;//Atribui para o campo, nome de acordo banco
+                    if (idCliente == null){
+                      icon = Icon(Icons.thumb_down , color: Colors.red,);
+                      valIcon['nome'] = false;
+                    }else{
+                      Icon(Icons.thumb_up_alt,color: Colors.green,);
+                      valIcon['nome'] = true;
+                    }
+                    
+                                                
+                  
+                });
+          
+               }, icon: icon), 
+               ), 
+          
+               //Campo para inserir nome produto. Chama pop-up para escolha de produto ou cadastro de novo produto
+               WcampoTexto(rotulo: 'Produto' ,
+               variavel: produtoControl, senha: false,
+               icon: IconButton(
+                 onPressed: ()async{
+                  
+                   final result = await showDialog(
+                       context: context,
+                       builder: (context) {
+                         return WpopupProduto(produto: produtoControl.text,);
+                       },
+                     );
+                     print(result);
+          
+                     setState(() {
+                       if (result !=null){
+                         retEstoque = result;
+                         produtoControl.text = retEstoque['resProduto'];
+                         iconProd = Icon(Icons.thumb_up , color: Colors.green,);
+                          valIcon['produto'] = true;
+                       } else{
+                         iconProd = Icon(Icons.thumb_down , color: Colors.red,);
+                          valIcon['produto'] = false;
+                       }                    
+                       
+                     });
+                 }, 
+                 icon: iconProd),),
+          
+              WcampoTexto(rotulo: "Valor venda", variavel: valorCtrl,
+              validator: (value){
+                Validation().campoTexto(value);} ,
+              enable: true, senha: false,),
+          
+              WCampoNumero(rotulo: "parcelas",variavel: parcelasControl,
+              validator: (value){
+                Validation().campoNumero(value);
+              },),
+          
+              dropPag,
+          
+              dropBanco,
               
-               //Opçao quando pagamento for alternativo
-          GestureDetector(
-            onTap: (){
+              datetime,
+                
+                 //Opçao quando pagamento for alternativo
+            GestureDetector(
+              onTap: ()async{
 
-            },
-            child:WBotao(rotulo: "Salvar",) ,
-          )
-              
-            ],
+
+                if(globalKey.currentState.validate()){
+                
+                List caixa= [];
+                Map<String, dynamic> toSalve = {
+                  "data" : datetime.data,
+                  "dataCompra" : retEstoque['dataCompra'],
+                  "detTransacao":parcelasControl.text,
+                  "idCliente": idCliente,
+                  "idProduto":retEstoque['idProduto'],
+                  "nomeCliente":nomeControl.text,
+                  "nomeProduto":retEstoque['resProduto'],
+                  "telefone": telefone,
+                  "transacao":dropPag.selectedItem,
+                  "valor":valorCtrl.text,
+                  "valorCompra":retEstoque['valor']
+          
+                };
+                if(dropPag.selectedItem == "pagamento alternativo"){
+                   print(produtoControl.text);
+                     final result = await Navigator.push(
+                       context, 
+                       PageRouteBuilder(
+                         transitionDuration: Duration(milliseconds: 100),
+                         pageBuilder: (_ , __ , ___)=>PagePgtoAlt(totalCompra: double.tryParse(valorCtrl.text) ,)));
+                          print(result);
+                           for (var item in result) {
+                              caixa.add(
+                         {                                                
+                           "banco" :item['banco'],
+                           "operacao" :item['operacao'],
+                           "valor":item['valor'],
+                           "status" : "Entrada"
+                                               
+                        });
+                           }
+                } else{
+                caixa = [{
+                  "banco" : dropBanco.selectedItem,
+                  "operacao" :dropPag.selectedItem,
+                  "valor" : valorCtrl.text,
+                  "status":"Entrada"
+                }];
+                }            
+          
+                String saved = await WriteVenda().writeVenda(toSalve, caixa , datetime.data, retEstoque['idProduto']);
+          
+                if(saved == RetornoEventos().salvo){
+                        Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, backgroundColor: Colors.green);
+                        }else{
+                        Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, backgroundColor: Colors.red);
+                     }
+                     Navigator.pop(context);
+          }
+              },
+              child:WBotao(rotulo: "Salvar",) ,
+            )
+                
+              ],
+            ),
           ),
         ),
       ),
