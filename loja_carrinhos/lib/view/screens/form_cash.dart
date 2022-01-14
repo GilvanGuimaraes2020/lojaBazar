@@ -96,7 +96,7 @@ class _FormCashState extends State<FormCash> {
                        
                        List data = [
                          {
-                           'valor' : double.tryParse(ctrlValor.text) ,
+                           'valor' : ctrlValor.text ,
                            'detalhe':ctrlDetalhe.text,
                            'operacao': dropPagamento.selectedItem,
                            'banco': dropBanco.selectedItem,

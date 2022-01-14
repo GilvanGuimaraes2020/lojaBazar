@@ -12,13 +12,13 @@ class WpopupProduto extends StatefulWidget {
 }
 
 class _WpopupProdutoState extends State<WpopupProduto> {
- CollectionReference dbProduto = FirebaseFirestore.instance.collection("teste");
+ CollectionReference dbProduto = FirebaseFirestore.instance.collection("estoque");
  List<Estoque> listaProd = [];
  @override
  void initState(){
    super.initState();
 
-  dbProduto.orderBy("resProduto").where("resProduto" , isGreaterThanOrEqualTo: widget.produto)
+  dbProduto.orderBy("resProduto").where("status", isEqualTo: "1").where("resProduto" , isGreaterThanOrEqualTo: widget.produto)
   .where("resProduto", isLessThanOrEqualTo: widget.produto + "z").get().then((value) {
    setState(() {
      listaProd = value.docs.map((e) => Estoque.fromMap(e.data(), e.id)).toList();

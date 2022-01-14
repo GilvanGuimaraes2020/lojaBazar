@@ -20,9 +20,9 @@ ListCashDB.fromMap(String key, Map<String , dynamic> map){
   map.forEach((key, value) {
     for (var item in value) {
       if(item['status']=="Entrada") {
-        soma = soma +  item['valor'];
+        soma = soma + double.tryParse(item['valor']);
       } else{
-        soma = soma +  (-1 * item['valor']);
+        soma = soma +  (-1 * double.tryParse(item['valor']));
       }      
     }
   });

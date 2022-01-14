@@ -44,6 +44,7 @@ class _CashPageState extends State<CashPage> {
       appBar: AppBar(
         title: Text("Movimento Caixa"),
         actions: [
+          //busca consolidados
           IconButton(
             onPressed: ()async{
              listCash = await ReadMovimento().viewsContas();
@@ -53,6 +54,8 @@ class _CashPageState extends State<CashPage> {
               Icons.cabin,
               color: Colors.white,
               size: 24,)),
+              
+              //busca categoria
           IconButton(
         onPressed: ()async{
           listCash = await ReadMovimento().readResumoCaixa();

@@ -3,7 +3,7 @@ import 'package:loja_carrinhos/view/screens/models/modelsOfDB/m_DB_listCash.dart
 import '../../../view/screens/models/modelsOfDB/m_DB_entradas_cash.dart';
 import '../../../view/shared/messages/idDocs.dart';
 
-class ReadMovimento{
+class   ReadMovimento{
    
    Future<List<MDBEntradasCash>> readDados()async{
 

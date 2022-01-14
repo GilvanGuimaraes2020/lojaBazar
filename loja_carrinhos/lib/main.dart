@@ -16,6 +16,7 @@ import 'package:loja_carrinhos/comentarios.dart';
 
 //import 'package:loja_carrinhos/TelaAgenda.dart';
 import 'package:loja_carrinhos/relatorio.dart';
+import 'package:loja_carrinhos/view/screens/home_page.dart';
 import 'package:loja_carrinhos/view/screens/menu_page.dart';
 
 
@@ -29,7 +30,7 @@ void main  () async
   runApp(MaterialApp(
 debugShowCheckedModeBanner: false,
 //Inserir menuPage para nao precisar digitar senha quando reloaded, padrao HomePage
-    home: MenuPage(),
+    home: HomePage(),
 
     routes: {
       
