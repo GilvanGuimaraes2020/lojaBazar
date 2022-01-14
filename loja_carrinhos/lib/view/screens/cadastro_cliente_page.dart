@@ -120,7 +120,8 @@ class _CadastroClientePageState extends State<CadastroClientePage> {
                 retorno = WriteCliente().atualizaCliente(id , map);
                 print("ID $id,  $retorno");
               }else{
-                //retorno = WriteCliente().salvaCliente(map);
+                retorno = WriteCliente().salvaCliente(map);
+                Toast.show(retorno , context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, backgroundColor: Colors.green);
                 print(" $retorno");
               }
               

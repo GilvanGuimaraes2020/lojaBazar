@@ -8,7 +8,7 @@ class WriteEstoque{
    String status;
    String id;
    //Salvamento no banco teste, o qual sera trocado pelo estoque
-   CollectionReference reference = FirebaseFirestore.instance.collection("teste");
+   CollectionReference reference = FirebaseFirestore.instance.collection("estoque");
 
   await reference.add(map).then((value) {
     status = RetornoEventos().salvo;

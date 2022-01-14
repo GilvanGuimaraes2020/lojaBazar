@@ -3,7 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/data/connDataBase/writeData/write_cliente.dart';
-import 'package:loja_carrinhos/obsoletos/TelaCadastroCliente.dart';
 import 'package:loja_carrinhos/view/screens/cadastro_cliente_page.dart';
 import 'package:loja_carrinhos/view/screens/models/m_clientes.dart';
 import 'package:loja_carrinhos/view/screens/routes/routes.dart';
@@ -93,6 +92,7 @@ class _WpopupClienteState extends State<WpopupCliente> {
               widget.name = nomes[index].nome ;
               widget.telefone= nomes[index].telefone;
               widget.idCliente=nomes[index].id;
+
               Navigator.pop( context , retorno);
             },
           );          

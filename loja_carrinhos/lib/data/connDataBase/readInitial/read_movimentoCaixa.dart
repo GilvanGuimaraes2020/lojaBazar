@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:loja_carrinhos/data/connDataBase/writeData/write_resumo_caixa.dart';
-import 'package:loja_carrinhos/view/shared/messages/idDocs.dart';
-
+import 'package:loja_carrinhos/view/screens/models/modelsOfDB/m_DB_listCash.dart';
 import '../../../view/screens/models/modelsOfDB/m_DB_entradas_cash.dart';
+import '../../../view/shared/messages/idDocs.dart';
 
 class ReadMovimento{
    
@@ -29,30 +28,34 @@ class ReadMovimento{
     return entradas;
 
    }
-
-   Future<Map<String, dynamic>> readResumoCaixa()async{
-     DateTime data = DateTime.now();
-     IdDocs ids = IdDocs.ids(data: data);
-      DocumentReference listDB = FirebaseFirestore.instance.collection("MovimentoCaixa").doc('registroContas');
-      Map<String ,dynamic>  map;
-
-      await listDB.get().then((value)  {
-        
-        map =  value.data();
-        
-      });
-
-        if (ids.diaDoc == "11" ){
-        if (map['verificador'] == true){ 
-          WriteResumoCaixa().resetarValores(); 
-        }
-      } else if(ids.diaDoc =="12"){
-          WriteResumoCaixa().ativarVerificador();
-      }
+ Future<List<ListCashDB>> readResumoCaixa()async{
+      DateTime data = DateTime.now();
+      IdDocs ids = IdDocs.ids(data: data);
+      CollectionReference listDB = FirebaseFirestore.instance.collection("MovimentoCaixa").doc('registroContas').collection(ids.idDoc);
       
-      return map;
+      List<ListCashDB> lista = [];
+       await listDB.get().then((value) {          
+          lista = value.docs.map((e) => ListCashDB.fromMap(e.id, e.data())).toList();
+        });
+      
+      return lista;
 
   }
+
+  Future<List<ListCashDB>> viewsContas()async{
+      DateTime data = DateTime.now();
+      IdDocs ids = IdDocs.ids(data: data);
+      CollectionReference listDB = FirebaseFirestore.instance.collection("MovimentoCaixa").doc('CContas').collection(ids.anoDoc);
+      
+      List<ListCashDB> lista = [];
+       await listDB.get().then((value) {          
+          lista = value.docs.map((e) => ListCashDB.viewConta(e.id, e.data())).toList();
+        });
+      
+      return lista;
+
+  }
+  
 
 
    }

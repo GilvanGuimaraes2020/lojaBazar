@@ -1,11 +1,4 @@
-import 'dart:html';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:flutter/material.dart';
-import 'package:loja_carrinhos/AtualizaCaixa.dart';
-
-import 'package:loja_carrinhos/Models.dart';
 import 'package:loja_carrinhos/data/connDataBase/writeData/write_venda.dart';
 import 'package:loja_carrinhos/view/screens/widgets/compra/page_pgto_alt.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
@@ -28,7 +21,7 @@ class PageVenda extends StatefulWidget {
 class _PageVendaState extends State<PageVenda> {
 //Variaveis de estado
   var globalKey = GlobalKey<FormState>();
-  Map<String , bool> valIcon ;
+  Map<String , bool> valIcon ; //Validar widgets fora do form
 //Variaveis para carregar dados dos bancos cliente e estoque  
    String idCliente;
    String codCliente ;
@@ -70,26 +63,30 @@ class _PageVendaState extends State<PageVenda> {
                icon: IconButton(onPressed: ()async{
                  //popup para escolher cliente cadastrado
                  var popCliente = WpopupCliente(name: nomeControl.text);
-                  await showDialog(
+                 
+                await showDialog(
                        context: context,
                        builder: (context) {
                          return popCliente;
                        },
                      );
+
                      
                 setState(() {
                   
                     idCliente = popCliente.idCliente;
                     telefone = popCliente.telefone;
                     nomeControl.text = popCliente.name;//Atribui para o campo, nome de acordo banco
-                    if (idCliente == null){
+                   /*  if (idCliente == null){
                       icon = Icon(Icons.thumb_down , color: Colors.red,);
                       valIcon['nome'] = false;
                     }else{
                       Icon(Icons.thumb_up_alt,color: Colors.green,);
                       valIcon['nome'] = true;
-                    }
-                    
+                    } */
+                     icon = idCliente == null ? Icon(Icons.thumb_down , color: Colors.red,):
+                                                Icon(Icons.thumb_up_alt,color: Colors.green,);
+                  
                                                 
                   
                 });
@@ -110,17 +107,17 @@ class _PageVendaState extends State<PageVenda> {
                        },
                      );
                      print(result);
-          
-                     setState(() {
-                       if (result !=null){
+
+                    setState(() {
+                       
                          retEstoque = result;
+                          if (retEstoque !=null){
                          produtoControl.text = retEstoque['resProduto'];
-                         iconProd = Icon(Icons.thumb_up , color: Colors.green,);
-                          valIcon['produto'] = true;
-                       } else{
-                         iconProd = Icon(Icons.thumb_down , color: Colors.red,);
-                          valIcon['produto'] = false;
-                       }                    
+                         iconProd = Icon(Icons.thumb_up , color: Colors.green);
+                          
+                          } else{
+                            iconProd = Icon(Icons.thumb_down , color: Colors.red);
+                          }           
                        
                      });
                  }, 

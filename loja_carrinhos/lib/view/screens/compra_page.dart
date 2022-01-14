@@ -75,7 +75,7 @@ class _CompraPageState extends State<CompraPage> {
                      );
                      
                 setState(() {
-                    codCliente = popCliente.codCliente; //Atribui cod do cliente para variavel
+                    codCliente = popCliente.idCliente; //Atribui cod do cliente para variavel
                     nomeControl.text = popCliente.name;//Atribui para o campo, nome de acordo banco
                     icon = codCliente == null ? Icon(Icons.thumb_down , color: Colors.red,):
                                                 Icon(Icons.thumb_up_alt,color: Colors.green,);
@@ -193,11 +193,11 @@ class _CompraPageState extends State<CompraPage> {
                   
                    }
                       String saved = await  WriteEstoque().writeEstoque(mapEstoque , caixa, dataTime.data);           
-                      if(saved == RetornoEventos().salvo){
-                        Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, backgroundColor: Colors.green);
-                        }else{
-                        Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, backgroundColor: Colors.red);
-                     }
+                     
+                      Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, 
+                      backgroundColor: saved == RetornoEventos().salvo?Colors.green:
+                        Colors.red);
+                        
                      Navigator.pop(context);
                    }
                  },

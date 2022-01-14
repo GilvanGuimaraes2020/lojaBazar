@@ -9,9 +9,9 @@ class WriteVenda{
     String status;
     String id;
    //Salvamento no banco teste, o qual sera trocado pelo estoque
-   CollectionReference reference = FirebaseFirestore.instance.collection("testeVenda");
+   CollectionReference reference = FirebaseFirestore.instance.collection("historicoVenda");
 
-   CollectionReference refEstoque = FirebaseFirestore.instance.collection("teste");
+   CollectionReference refEstoque = FirebaseFirestore.instance.collection("estoque");
 
   await reference.add(map).then((value) {
     refEstoque.doc(idProduto).update({"status": "0" });    
