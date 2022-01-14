@@ -73,7 +73,7 @@ class _WpopupProdutoState extends State<WpopupProduto> {
                 {
                   "idProduto" : lista[index].id,
                   "resProduto" : lista[index].resProduto,
-                  "valor" : double.tryParse(lista[index].valor),
+                  "valor" : lista[index].valor,
                   "dataCompra":lista[index].data
                 }
               ;

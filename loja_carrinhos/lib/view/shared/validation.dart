@@ -16,7 +16,7 @@ class Validation{
   }
 
   String campoTelefone(String value){
-    String pattern = r"^\([1-9]{2}\) [9]{0,1}[0-9]{4}-[0-9]{4}$";
+    String pattern = r"^\([1-9]{2}\) [9]{0,1}[0-9]{4}[0-9]{4}$";
     RegExp regexp = new RegExp(pattern);
 
     if (value.length<=0){

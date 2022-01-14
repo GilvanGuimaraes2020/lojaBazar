@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:loja_carrinhos/MovimentoCaixa.dart';
 import 'package:loja_carrinhos/data/connDataBase/writeData/write_controle.dart';
-import 'package:loja_carrinhos/data/connDataBase/writeData/write_resumo_caixa.dart';
 import 'package:loja_carrinhos/view/shared/messages/idDocs.dart';
 import 'package:loja_carrinhos/view/shared/messages/retornoEventos.dart';
 
