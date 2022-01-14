@@ -8,6 +8,7 @@ class WriteMovimento{
  /*  WriteResumoCaixa resumoCaixa = new WriteResumoCaixa();
 
   WriteMovimento({this.resumoCaixa}); */
+  String status;
 
   Future<String> writeDados ({String categoria,  List lista, DateTime data}) async{
      
@@ -17,14 +18,15 @@ class WriteMovimento{
 
   await reference.doc(categoria).set({ids.diaDoc: FieldValue.arrayUnion(lista)},SetOptions(merge: true)  ).then((value){
     print("salvo com sucesso");
+    status = RetornoEventos().salvo;
     
   })
   .catchError((onError){
-    
+    status = RetornoEventos().erro;
     return RetornoEventos().erro;
   });
 
-   String retorno = await WriteControle().writeDados("Salvo com Sucesso", data, lista);
+   String retorno = await WriteControle().writeDados(status, data, lista);
     print("Retorno write_controle: $retorno");
     
     return RetornoEventos().salvo;

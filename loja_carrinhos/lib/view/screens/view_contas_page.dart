@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/view/screens/models/modelsOfDB/m_DB_listCash.dart';
+import 'package:loja_carrinhos/view/screens/widgets/contas/w_lista_saldo.dart';
 
 class ViewContasPage extends StatefulWidget {
   final List<ListCashDB> viewContas;
@@ -19,16 +20,18 @@ class _ViewContasPageState extends State<ViewContasPage> {
 
       body: Container(
         child: Column(
-          children: List.generate(
-            widget.viewContas.length, (index) {
-              return Row(
-                children: [
-                  Text(widget.viewContas[index].title),
-                  Text("${widget.viewContas[index].atual}"),
-                  Text("${widget.viewContas[index].total}"),
-                ],
-              );
-            }),
+          children: [
+            Container(
+              child: Text("Cabeçalho"),
+            ),
+            Divider(),
+            Column(
+              children: List.generate(
+                widget.viewContas.length, (index) {
+                  return WListaSaldo(viewContas: widget.viewContas[index],);
+                }),
+            ),
+          ],
         ),
       ) ,
       

@@ -40,6 +40,14 @@ class ListsShared{
     'feminino',
     'unissex'
   ];
+
+  List<String> dropProdutos =['Carrinho' , 'Banheira','Eletronico', 'Andador', 'Berço','Chiqueirinho'
+                        ,'Conjunto','Bebe Conf c base','Bebe Conf s base' ,'Cadeira p auto', 'Cadeirinha',
+                        'Cadeirão','Selecione','tapete educ','Triciclo','Kit Berço','Kit Higiene', 'Lote Roupas','Colchão',
+                        'Cobertor', 'Almofada', 'Carrinho Bug' ];
+
+  List<String> dropMarca =['Galzerano' , 'Burigotto', 'BabyStyle' ,'Fischer Price', 'Tutti', 'Infanti', 'Chicco',
+                    'Cosco', 'Voyage','Gracco', 'Safety', 'Peg-Perego' ,'Outros'];
 //funçao para selecionar lista para dropdown
   List<String> selectList(String item){
     switch (item) {

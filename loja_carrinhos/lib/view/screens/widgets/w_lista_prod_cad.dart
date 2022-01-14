@@ -64,7 +64,7 @@ class _WlistaProdCadState extends State<WlistaProdCad> {
             title: Text('${produtos[index].tipoProduto} , ${produtos[index].marca} , ${produtos[index].modelo}',
          style: TextStyle(fontSize: 12, ),),
          onTap: (){
-           String codProduto = produtos[index].codigo;
+           String codProduto = produtos[index].id;
            String produto = produtos[index].tipoProduto + " " + produtos[index].marca;
            
            Navigator.pop(contexto , [codProduto , produto]);
