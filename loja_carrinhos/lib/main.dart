@@ -34,8 +34,7 @@ debugShowCheckedModeBanner: false,
 
     routes: {
       
-      //'/agenda' : (context) => TelaAgenda(),
-      //'/teste' : (context) => TesteMudarData(),
+      
       '/telaAlerta' : (context) => AlertaListaTela(),
       '/cadastroProduto' : (context) => CadastroProduto(),
       '/listaProdutos' : (context) => ListaProdutos(),

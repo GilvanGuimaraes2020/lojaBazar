@@ -22,7 +22,16 @@ class _ViewContasPageState extends State<ViewContasPage> {
         child: Column(
           children: [
             Container(
-              child: Text("Cabeçalho"),
+              padding: EdgeInsets.all(6),
+              margin: EdgeInsets.all(6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("Alocado"),
+                  Text("Saldo Mes"),
+                  Text("Total")
+                ],
+              ),
             ),
             Divider(),
             Column(
