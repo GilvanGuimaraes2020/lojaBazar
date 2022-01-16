@@ -43,8 +43,8 @@ ListCashDB.viewConta(String title , Map<String , dynamic> map){
       IdDocs ids = IdDocs.ids(data: data);
      print("$title , ${map[ids.idDoc]} , ${map["total"]}");
       this.title = title;
-      this.atual = map[ids.idDoc];
-      this.total = map["total"];
+      this.atual = double.tryParse((map[ids.idDoc]==null?0:map[ids.idDoc]).toString())  ;
+      this.total = double.tryParse((map["total"]==null?0:map["total"]).toString());
 
 }
 

@@ -17,6 +17,7 @@ class CashPage extends StatefulWidget {
 }
 
 class _CashPageState extends State<CashPage> {
+ //verifica se os dados provem do banco ou da lista interna
   bool datasBase = false;
 //forma lista com as categorias
  List<String> categoria= ListsShared().dropCategorias;

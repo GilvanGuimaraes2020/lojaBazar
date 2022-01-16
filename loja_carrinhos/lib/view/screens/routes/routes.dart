@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:loja_carrinhos/TelaCadastroProduto.dart';
 import 'package:loja_carrinhos/TelaEstoque.dart';
 import 'package:loja_carrinhos/alertaPeriodoVenda.dart';
+import 'package:loja_carrinhos/control/normalizaBanco/normaliza_banco.dart';
 import 'package:loja_carrinhos/relatorio.dart';
 import 'package:loja_carrinhos/view/screens/cadastro_cliente_page.dart';
 import 'package:loja_carrinhos/view/screens/cash_page.dart';
@@ -68,6 +69,9 @@ class Routes{
              transitionDuration: Duration(milliseconds: 100),
              pageBuilder: (_ , __ , ___) => CashPage()));
         } else if(route == 'alerta'){
+          //Usar o icone alerta para trata dos dados do banco NormalizaBanco,
+          //serao convertidos os dados do documento de registro antigo para os novos
+          //estava VendaFutura na rota desta parte
           Navigator.push(context,
            PageRouteBuilder(
              transitionDuration: Duration(milliseconds: 100),
