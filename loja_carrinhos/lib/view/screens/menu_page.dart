@@ -40,6 +40,8 @@ class _MenuPageState extends State<MenuPage> {
       listMenu.add(menu9);
        Menu menu10 = new Menu(name: "alerta" , icon: Icons.notification_important);
       listMenu.add(menu10);
+       Menu menu11 = new Menu(name: "fotos" , icon: Icons.photo_camera);
+      listMenu.add(menu11);
 
   }
   @override
