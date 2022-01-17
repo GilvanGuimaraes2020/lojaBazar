@@ -16,7 +16,9 @@ import 'package:loja_carrinhos/comentarios.dart';
 
 //import 'package:loja_carrinhos/TelaAgenda.dart';
 import 'package:loja_carrinhos/relatorio.dart';
+import 'package:loja_carrinhos/view/screens/error_page.dart';
 import 'package:loja_carrinhos/view/screens/home_page.dart';
+import 'package:loja_carrinhos/view/screens/loading_page.dart';
 import 'package:loja_carrinhos/view/screens/menu_page.dart';
 
 
@@ -25,16 +27,36 @@ import 'package:loja_carrinhos/view/screens/menu_page.dart';
 void main  () async
  {
     WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(); 
+  
+  runApp(App());
+}
 
-  runApp(MaterialApp(
+class App extends StatelessWidget {
+  final Future<FirebaseApp> _inicializacao = Firebase.initializeApp(); 
+
+  App({ Key key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
 debugShowCheckedModeBanner: false,
 //Inserir menuPage para nao precisar digitar senha quando reloaded, padrao HomePage
-    home: HomePage(),
+    home: FutureBuilder(
+      future: _inicializacao,
+      builder: (context , app){
+        if (app.connectionState == ConnectionState.done){
+          return HomePage();
+        } else if(app.hasError){
+          return ErrorPage();
+        }else{
+          return LoadingPage();
+        }
+      },
+    ),
 
     routes: {
       
-      
+      '/menu' : (context) => MenuPage(),
       '/telaAlerta' : (context) => AlertaListaTela(),
       '/cadastroProduto' : (context) => CadastroProduto(),
       '/listaProdutos' : (context) => ListaProdutos(),
@@ -52,10 +74,6 @@ debugShowCheckedModeBanner: false,
       const Locale('pt' )
     ],
 
-  )
   );
-
- 
-
-
+  }
 }

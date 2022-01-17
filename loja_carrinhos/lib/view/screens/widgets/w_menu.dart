@@ -27,7 +27,7 @@ class Wmenu extends StatelessWidget {
       child: Hero(tag: menu.name, 
       child: Container(
         margin: EdgeInsets.all(10),
-        height: MediaQuery.of(context).size.height/3,
+        height: MediaQuery.of(context).size.height/2,
         width: MediaQuery.of(context).size.width / 3,
         decoration: BoxDecoration(
           color: Colors.green[200],

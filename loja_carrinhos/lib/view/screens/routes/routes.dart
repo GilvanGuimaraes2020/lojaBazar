@@ -5,6 +5,7 @@ import 'package:loja_carrinhos/TelaEstoque.dart';
 import 'package:loja_carrinhos/alertaPeriodoVenda.dart';
 import 'package:loja_carrinhos/control/normalizaBanco/normaliza_banco.dart';
 import 'package:loja_carrinhos/relatorio.dart';
+import 'package:loja_carrinhos/view/cloudFiles/show_images.dart';
 import 'package:loja_carrinhos/view/screens/cadastro_cliente_page.dart';
 import 'package:loja_carrinhos/view/screens/cash_page.dart';
 import 'package:loja_carrinhos/view/screens/compra_page.dart';
@@ -82,7 +83,14 @@ class Routes{
              transitionDuration: Duration(milliseconds: 100),
              pageBuilder: (_ , __ , ___ ) => HomePage()), 
              (route) => false);
-        } 
+        } else if(route == "fotos"){
+           Navigator.pushAndRemoveUntil(context, 
+           PageRouteBuilder(
+             transitionDuration: Duration(milliseconds: 100),
+             pageBuilder: (_ , __ , ___ ) => ShowImages()), 
+             (route) => false);
+        }
+
         else {
            Navigator.pushAndRemoveUntil(context, 
            PageRouteBuilder(
