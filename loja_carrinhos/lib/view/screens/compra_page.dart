@@ -158,7 +158,7 @@ class _CompraPageState extends State<CompraPage> {
                        "valor" : valorControl.text ,
                        "status" : "1",
                        "data" : dataTime.data,
-                       "cor" : corControl.text,
+                       "corProduto" : corControl.text,
                        "sexo" : dropSexo.selectedItem,                       
                      };
           

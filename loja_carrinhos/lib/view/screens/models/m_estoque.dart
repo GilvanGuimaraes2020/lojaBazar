@@ -24,7 +24,7 @@ class Estoque{
     this.valor = map['valor'];
     this.status = map['status'];
     this.data = map['data'];
-    this.cor = map['cor'];
+    this.cor = map['corProduto'];
 
   }
   

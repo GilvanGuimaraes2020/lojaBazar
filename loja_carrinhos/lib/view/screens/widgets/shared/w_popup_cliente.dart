@@ -79,7 +79,7 @@ class _WpopupClienteState extends State<WpopupCliente> {
             onTap: (){
               List<Map<String , dynamic>> retorno =[
                 {
-                "codigo" : nomes[index].codigo,
+                //"codigo" : nomes[index].codigo,
                 "nome" : nomes[index].nome ,
                 "telefone" : nomes[index].telefone,
                 "bairro" : nomes[index].bairro,

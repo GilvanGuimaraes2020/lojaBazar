@@ -45,7 +45,7 @@ debugShowCheckedModeBanner: false,
       future: _inicializacao,
       builder: (context , app){
         if (app.connectionState == ConnectionState.done){
-          return HomePage();
+          return MenuPage();
         } else if(app.hasError){
           return ErrorPage();
         }else{

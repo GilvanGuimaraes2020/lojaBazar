@@ -5,9 +5,10 @@ class MDBEntradasCash{
   String operacao;
   String banco;
   double parcelas;
-  double valor;
+  String valor;
+  String status;
    
-  MDBEntradasCash({ this.dia, this.detalhe, this.operacao, this.banco, this.parcelas, this.valor});
+  MDBEntradasCash({ this.dia, this.detalhe, this.operacao, this.banco, this.parcelas, this.valor, this.status});
 
   MDBEntradasCash.fromMap(String dia , Map<String , dynamic> map){
     this.dia = dia;
@@ -15,7 +16,8 @@ class MDBEntradasCash{
     this.operacao = map['operacao'];
     this.banco = map['banco'];
     this.parcelas = map['parcelas'];
-    this.valor = map['valor'];  
+    this.valor = map['valor']; 
+    this.status = map['status']; 
     
   }
 }

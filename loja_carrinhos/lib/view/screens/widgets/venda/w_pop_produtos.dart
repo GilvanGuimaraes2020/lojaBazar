@@ -33,6 +33,7 @@ class _WpopupProdutoState extends State<WpopupProduto> {
 
         //Forma lista com cadastros ja realizados para verificar se ja esta salvo
         content: listaEstoque(listaProd),
+        backgroundColor: Colors.blue[200],
         actions: [
           ElevatedButton(
             child: Text("Sair"),
@@ -66,15 +67,15 @@ class _WpopupProdutoState extends State<WpopupProduto> {
         itemBuilder: (context, index){
          
             return ListTile(
-            title: Text("Nome: ${lista[index].resProduto}, Cor: ${lista[index].cor} "),
-            subtitle: Text("Preço: ${lista[index].valor}"),
+            title: Text("${lista[index].resProduto} ${lista[index].cor} "),
+            subtitle: Text("De: ${lista[index].resCliente}, Preço: ${lista[index].valor}"),
             onTap: (){
               Map<String, dynamic> retornoPop = 
                 {
                   "idProduto" : lista[index].id,
                   "resProduto" : lista[index].resProduto,
                   "valor" : lista[index].valor,
-                  "dataCompra":lista[index].data
+                  "dataCompra":lista[index].data.toDate().toString()
                 }
               ;
               

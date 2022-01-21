@@ -6,6 +6,7 @@ class ListCashDB{
   String title;
   double total;
   double atual;
+  
 
   
 

@@ -5,10 +5,10 @@ import '../../../view/shared/messages/idDocs.dart';
 
 class   ReadMovimento{
    
-   Future<List<MDBEntradasCash>> readDados()async{
+   Future<List<MDBEntradasCash>> readDados(String id)async{
 
-       DocumentReference docReference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("registroContas").collection("2022-1").doc("combustivel");
-        List<MDBEntradasCash> entradas = [];
+       DocumentReference docReference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("registroContas").collection("2022-1").doc(id);
+        List<MDBEntradasCash> entradas =[];
       await docReference.get().then((value) {     
         
         Map<String , dynamic> valuesBanco = value.data();
@@ -25,6 +25,7 @@ class   ReadMovimento{
         });
             
     });
+    
     return entradas;
 
    }

@@ -11,6 +11,7 @@ import 'package:loja_carrinhos/view/screens/widgets/venda/w_pop_produtos.dart';
 import 'package:loja_carrinhos/view/shared/validation.dart';
 import 'package:toast/toast.dart';
 
+import '../shared/messages/dialogos/confirmar_dados.dart';
 import '../shared/messages/retornoEventos.dart';
 
 class PageVenda extends StatefulWidget {
@@ -161,8 +162,10 @@ class _PageVendaState extends State<PageVenda> {
                   "valorCompra":retEstoque['valor']
           
                 };
+//abre tela para adicionar mais opçoes
                 if(dropPag.selectedItem == "pagamento alternativo"){
                    print(produtoControl.text);
+//
                      final result = await Navigator.push(
                        context, 
                        PageRouteBuilder(
@@ -186,16 +189,21 @@ class _PageVendaState extends State<PageVenda> {
                   "valor" : valorCtrl.text,
                   "status":"Entrada"
                 }];
-                }            
+                }   
+                Map mapToMsg = toSalve;
+                mapToMsg.remove("valorCompra");                
+                var result = await showDialog(                       
+                       context: context, builder: (context)=>ConfirmarDados(mapCash: mapToMsg , title: "Confirmar Dados",));        
+                if (result[0]){
+                  String saved = await WriteVenda().writeVenda(toSalve, caixa , datetime.data, retEstoque['idProduto']);
           
-                String saved = await WriteVenda().writeVenda(toSalve, caixa , datetime.data, retEstoque['idProduto']);
-          
-                if(saved == RetornoEventos().salvo){
-                        Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, backgroundColor: Colors.green);
-                        }else{
-                        Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, backgroundColor: Colors.red);
-                     }
+                Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, 
+                backgroundColor: saved==RetornoEventos().salvo 
+                ? Colors.green : Colors.red);
+                      
                      Navigator.pop(context);
+                }
+                
           }
               },
               child:WBotao(rotulo: "Salvar",) ,

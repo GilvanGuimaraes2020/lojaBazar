@@ -16,7 +16,7 @@ class TrataDados{
 
       for (var item in lista) {
 
-        NormalizaBd().registraNovo(item.categoria, item.fieldArray , data);
+        //NormalizaBd().registraNovo(item.categoria, item.fieldArray , data, item.diaId);
         print("${item.categoria}:");
         print("\t${item.diaId}:");
         print("\t\t ${item.fieldArray}");
