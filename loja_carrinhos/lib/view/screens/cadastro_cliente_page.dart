@@ -43,8 +43,8 @@ class _CadastroClientePageState extends State<CadastroClientePage> {
                 WcampoTexto(rotulo: "Nome", senha: false,
                 variavel: nomeControl,
                 validator: (String value){
-                  print(value);
-                 return Validation().campoTexto(value);
+                
+                 return Validation().campoNome(value);
                 },
                 icon: IconButton(
                   onPressed: ()async{

@@ -5,6 +5,9 @@ import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_numero.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_campo_texto.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_dropdown.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_datetime.dart';
+import 'package:loja_carrinhos/view/shared/messages/dialogos/confirmar_dados.dart';
+import 'package:loja_carrinhos/view/shared/messages/retornoEventos.dart';
+import 'package:loja_carrinhos/view/shared/validation.dart';
 import 'package:toast/toast.dart';
 
 
@@ -63,28 +66,19 @@ class _FormCashState extends State<FormCash> {
                          ),
                          ),),
                          dateTime,
-                          WcampoTexto(rotulo: "Detalhe",senha: false,variavel: ctrlDetalhe,validator: (value){
-                            if(value.length ==0){
-                              return "Preencher campo";
-                            } else{
-                              return null;
-                            }
-                          },),
+                          WcampoTexto(rotulo: "Detalhe",senha: false,variavel: ctrlDetalhe,
+                          validator:(String value) {
+                            return Validation().campoTexto(value);
+                          } ,),
+
                           WCampoNumero(rotulo: "Valor", variavel: ctrlValor, validator: (value) {
-                             if(value.length != 0){
-                          return null;
-                             } else{
-                          return "Preencher Campo";
-                             }
+                             return Validation().campoMoeda(value);
                            },),
+                           
                            WCampoNumero(rotulo: "Parcelas", variavel: ctrlParcelas, validator: (value) {
-                             if(value.length != 0){
-                          return null;
-                             } else{
-                          return "Preencher Campo";
-                             }
+                             return Validation().campoNumero(value);
                            },),   
-                           Center(child: Text("Forma Montetizaçao"),),
+                           Center(child: Text("Forma Pagamento"),),
                            dropPagamento,
                            Center(child: Text("Bancos"),),
                            dropBanco
@@ -96,27 +90,32 @@ class _FormCashState extends State<FormCash> {
                    onTap: ()async{
                      if(formKey.currentState.validate()){
                        
-                       List data = [
-                         {
+                       List data = [] ;
+                       Map<String , dynamic> map =  {
                            'valor' : ctrlValor.text ,
                            'detalhe':ctrlDetalhe.text,
                            'operacao': dropPagamento.selectedItem,
                            'banco': dropBanco.selectedItem,
                            'parcelas':double.tryParse(ctrlParcelas.text),
                            'status' : widget.inOrOut
-                         }
-                       ] ;
-                       
-
-                     String writeDados = await WriteMovimento().writeDados(categoria: widget.title,  lista: data, data: dateTime.data);
+                         } ;
+                      data.add(map);                      
+                      Map mapToMsg = map;
+                      mapToMsg['data'] = dateTime.data;
+                     var result = await showDialog(                       
+                       context: context, builder: (context)=>ConfirmarDados(mapCash: mapToMsg , title: "Confirmar Dados",));
+                     
+                     if(result[0]){
+                         String writeDados = await WriteMovimento().writeDados(categoria: widget.title,  lista: data, data: dateTime.data);
                     
                      Toast.show(
-                       writeDados,context,duration: Toast.LENGTH_LONG, backgroundColor: writeDados=="Salvo com Sucesso"?
+                       writeDados,context,duration: Toast.LENGTH_LONG, backgroundColor: writeDados==RetornoEventos().salvo?
                         Colors.green :
                         Colors.red);
 
                      Navigator.of(context).pop();
-
+                     } 
+                   
                      }
                    
                    },

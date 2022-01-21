@@ -15,12 +15,12 @@ Future<Map<String, dynamic>> registroAntigo(DateTime data)async{
   return map;
 } 
 
-Future<String> registraNovo(String categoria, List lista, DateTime data)async{
+Future<String> registraNovo(String categoria, List lista, DateTime data, String diaDoc)async{
   IdDocs ids = IdDocs.ids(data: data);
       
      CollectionReference reference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("registroContas").collection(ids.idDoc);
 
-  await reference.doc(categoria).set({ids.diaDoc: FieldValue.arrayUnion(lista)},SetOptions(merge: true)  ).then((value){
+  await reference.doc(categoria).set({diaDoc: FieldValue.arrayUnion(lista)},SetOptions(merge: true)  ).then((value){
     print("salvo com sucesso");  
     
   })

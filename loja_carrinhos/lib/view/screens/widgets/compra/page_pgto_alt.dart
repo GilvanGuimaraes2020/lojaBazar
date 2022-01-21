@@ -77,6 +77,7 @@ class _PagePgtoAltState extends State<PagePgtoAlt> {
               List page = [];
               for (var i = 0; i < 3; i++) {
                 if (pagAltControl[i].text != ""){
+                  
                   page.add({
                   "banco" :dropAltBanco[i].selectedItem,
                   "operacao":dropAltPgto[i].selectedItem,
@@ -102,5 +103,9 @@ class _PagePgtoAltState extends State<PagePgtoAlt> {
         ],
     );
       
+  }
+
+  verificaOpcao(){
+
   }
 }
