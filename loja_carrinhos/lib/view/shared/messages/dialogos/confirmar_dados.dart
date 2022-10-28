@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ConfirmarDados extends StatefulWidget {
-  Map<String , dynamic> mapCash;
-  String title;
+  final Map<String , dynamic> mapCash;
+  final String title;
   ConfirmarDados({ Key key, this.mapCash, this.title });
 
   @override

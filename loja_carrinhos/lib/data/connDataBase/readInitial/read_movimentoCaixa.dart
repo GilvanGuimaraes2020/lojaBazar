@@ -5,20 +5,25 @@ import '../../../view/shared/messages/idDocs.dart';
 
 class   ReadMovimento{
    
-   Future<List<MDBEntradasCash>> readDados(String id)async{
+   Future<List<MDBEntradasCash>> readDados(String id, String doc)async{
 
-       DocumentReference docReference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("registroContas").collection("2022-1").doc(id);
+       DocumentReference docReference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("registroContas").collection(doc).doc(id);
+     //parte para testar problema no detalhamento das venda
+     /*  DocumentReference teste = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("registroContas").collection(doc).doc("venda");
+      await teste.get().then((value){
+        print(value.data());
+      });
+       print(" Doc: $doc , ID: $id"); */
         List<MDBEntradasCash> entradas =[];
       await docReference.get().then((value) {     
         
         Map<String , dynamic> valuesBanco = value.data();
 
-        valuesBanco.forEach((key, val) {
-          
-          
+        valuesBanco.forEach((key, val) {          
+      
             for (var item in val) {
               entradas.add(MDBEntradasCash.fromMap(key, item));
-              
+              print(item);
             }
           
           

@@ -6,20 +6,18 @@ class WriteEstoque{
 
  Future<String> writeEstoque(Map<String , dynamic> map , List caixa, DateTime data)async{
    String status;
-   String id;
    //Salvamento no banco teste, o qual sera trocado pelo estoque
    CollectionReference reference = FirebaseFirestore.instance.collection("estoque");
 
   await reference.add(map).then((value) {
     status = RetornoEventos().salvo;
-    id = value.id;
   }).catchError((onError){
     print("Erro write_estoque");
      status = RetornoEventos().erro;
    });
 
    if (status == RetornoEventos().salvo){
-     status = await WriteMovimento().getCompra(caixa , id, data);
+     status = await WriteMovimento().getCompra(caixa , data);
    }
 
    return status;

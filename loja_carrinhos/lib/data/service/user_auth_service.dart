@@ -35,8 +35,6 @@ class UserAuthService{
         email: email, password: senha);
        
         print(userCredential.user.uid); */
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword
-        (email: email, password: senha);
         //print(teste);
         return 'usuario cadastrado com sucesso';
     } on FirebaseException catch (e) {

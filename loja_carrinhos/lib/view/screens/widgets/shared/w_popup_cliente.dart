@@ -13,7 +13,7 @@ class WpopupCliente extends StatefulWidget {
    String codCliente;
    String telefone;
    String idCliente;
-   WpopupCliente({ Key key, this.name });
+    WpopupCliente({ Key key, this.name, this.codCliente, this.telefone, this.idCliente });
 
   @override
   _WpopupClienteState createState() => _WpopupClienteState();

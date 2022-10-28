@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loja_carrinhos/view/screens/form_cash.dart';
 
 // ignore: must_be_immutable
 class WRadioListInOut extends StatefulWidget {

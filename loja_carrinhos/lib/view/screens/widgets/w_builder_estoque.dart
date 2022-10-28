@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,7 @@ import 'package:loja_carrinhos/view/shared/colors/colors_widgets.dart';
 
 
 class BuilderEstoque extends StatefulWidget {
-  List<Estoque> estoque; 
+  final List<Estoque> estoque; 
   BuilderEstoque({ Key key, this.estoque});
 
   @override

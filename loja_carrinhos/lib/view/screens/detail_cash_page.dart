@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loja_carrinhos/data/connDataBase/readInitial/read_movimentoCaixa.dart';
+import 'package:loja_carrinhos/view/shared/messages/idDocs.dart';
 
 class DetailCashPage extends StatefulWidget {
   final String categoria;
@@ -14,15 +15,17 @@ class _DetailCashPageState extends State<DetailCashPage> {
   
   readDetalhe()async{
     
-    return ReadMovimento().readDados(widget.categoria);
+    IdDocs data = IdDocs.ids(data: DateTime.now()) ;
+    String doc = data.idDoc;
+    return ReadMovimento().readDados(widget.categoria , doc);
   }
   
   @override
   Widget build(BuildContext context) {
-   //List<MDBEntradasCash> entradas = ReadMovimento().readDados();
+
    return Scaffold(
       appBar: AppBar(
-        title: Text("Detalhamento de conta #${widget.categoria}#"),
+        title: Text("Detalhamento de conta >>> ${widget.categoria} <<<"),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -31,7 +34,7 @@ class _DetailCashPageState extends State<DetailCashPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("Data"),
+                    Text("Data"),
                     Text("Detalhe"),
                     Text("Tipo"),
                     Text("Valor")

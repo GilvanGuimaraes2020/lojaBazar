@@ -33,18 +33,16 @@ class WriteMovimento{
 
   }
 
-  Future<String> getCompra (List compra , String idCompra, DateTime data)async{
+  Future<String> getCompra (List compra , DateTime data)async{
     IdDocs ids = IdDocs.ids(data: data);
-      String status;
-     
-     
+      String status;     
       //salva dados em registro de contas no banco
      CollectionReference reference = FirebaseFirestore.instance.collection("MovimentoCaixa").doc("registroContas").collection(ids.idDoc);
    //abre a lista para extrair os dados
    for (var item in compra) {
       List lista = [{
         "banco" : item['banco'],
-        "detalhe": idCompra,
+        "detalhe": item['detalhe'],
         "operacao":item['operacao'],
         "parcelas":0,
         "status":item['status'],
@@ -81,10 +79,10 @@ class WriteMovimento{
    //abre a lista para extrair os dados
    for (var item in compra) {
       List lista = [{
-        "banco" : item['banco'],
-        "detalhe": idCompra,
+        "banco" : item['banco'] + "-" + idCompra,
+        "detalhe": item['detalhe'],
         "operacao":item['operacao'],
-        "parcelas":0,
+        "parcelas":int.tryParse(item['parcelas']),
         "status":item['status'],
         "valor":item['valor']
       }        

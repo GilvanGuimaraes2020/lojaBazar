@@ -8,9 +8,9 @@ class WcampoTexto extends StatefulWidget {
   final bool senha;
   final IconButton icon;
   final  validator;
-  bool enable = true; 
+  final bool enable; 
 
-  WcampoTexto({ this.variavel, this.rotulo, this.senha, this.icon, this.validator, this.enable });
+  WcampoTexto({ this.variavel, this.rotulo, this.senha, this.icon, this.validator, this.enable = true });
 
   @override
   State<WcampoTexto> createState() => _WcampoTextoState();

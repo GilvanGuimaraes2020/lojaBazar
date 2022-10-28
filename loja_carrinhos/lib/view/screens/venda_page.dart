@@ -88,8 +88,6 @@ class _PageVendaState extends State<PageVenda> {
                      icon = idCliente == null ? Icon(Icons.thumb_down , color: Colors.red,):
                                                 Icon(Icons.thumb_up_alt,color: Colors.green,);
                   
-                                                
-                  
                 });
           
                }, icon: icon), 
@@ -144,7 +142,6 @@ class _PageVendaState extends State<PageVenda> {
             GestureDetector(
               onTap: ()async{
 
-
                 if(globalKey.currentState.validate()){
                 
                 List caixa= [];
@@ -177,8 +174,10 @@ class _PageVendaState extends State<PageVenda> {
                          {                                                
                            "banco" :item['banco'],
                            "operacao" :item['operacao'],
+                           "parcelas": parcelasControl.text,
                            "valor":item['valor'],
-                           "status" : "Entrada"
+                           "status" : "Entrada",
+                           "detalhe":retEstoque['resProduto']
                                                
                         });
                            }
@@ -187,11 +186,14 @@ class _PageVendaState extends State<PageVenda> {
                   "banco" : dropBanco.selectedItem,
                   "operacao" :dropPag.selectedItem,
                   "valor" : valorCtrl.text,
-                  "status":"Entrada"
+                  "parcelas": parcelasControl.text,
+                  "status":"Entrada",
+                  "detalhe":retEstoque['resProduto']
                 }];
                 }   
-                Map mapToMsg = toSalve;
-                mapToMsg.remove("valorCompra");                
+                Map<String , dynamic> mapToMsg = Map.of(toSalve);
+                mapToMsg.removeWhere((key, value) => ['valorCompra'].contains(key));
+                                
                 var result = await showDialog(                       
                        context: context, builder: (context)=>ConfirmarDados(mapCash: mapToMsg , title: "Confirmar Dados",));        
                 if (result[0]){

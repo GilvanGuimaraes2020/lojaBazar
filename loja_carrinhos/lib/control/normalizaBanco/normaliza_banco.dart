@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:loja_carrinhos/control/normalizaBanco/trata_dados.dart';
 import 'package:loja_carrinhos/control/normalizaCliente/busca_cliente_estoque.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_botao.dart';
 import 'package:loja_carrinhos/view/screens/widgets/shared/w_datetime.dart';

@@ -72,26 +72,30 @@ class _PagePgtoAltState extends State<PagePgtoAlt> {
         backgroundColor: Color.fromARGB(255, 236, 182, 162),
         persistentFooterButtons: [
           GestureDetector(
-            onTap: (){
+            onTap: ()async{
+              
               double soma= 0;
               List page = [];
               for (var i = 0; i < 3; i++) {
-                if (pagAltControl[i].text != ""){
+                if (pagAltControl[i].text != "") {
                   
                   page.add({
                   "banco" :dropAltBanco[i].selectedItem,
                   "operacao":dropAltPgto[i].selectedItem,
-                  "valor":pagAltControl[i].text
+                  //Verifica se operaçao é maquina cartao
+                  "valor":await verificaOpcao(pagAltControl[i].text, dropAltPgto[i].selectedItem) 
                 }); 
                 soma = soma + double.tryParse(pagAltControl[i].text);
                 }                
                
               }
+
               print(soma);
+
               if (widget.totalCompra == soma){
                 Navigator.pop(context , page);
               } else{
-                print("valores nao batem");
+                
                 Toast.show("Soma dos valores nao batem", context, duration: Toast.LENGTH_LONG, backgroundColor: Colors.red);
 
               }
@@ -105,7 +109,11 @@ class _PagePgtoAltState extends State<PagePgtoAlt> {
       
   }
 
-  verificaOpcao(){
-
+ Future<String> verificaOpcao(String valor, String operacao)async{
+   if(operacao == "maquina cartao"){
+     return (double.tryParse(valor) * 0.961).toString();
+   } else{
+     return valor;
+   }
   }
 }

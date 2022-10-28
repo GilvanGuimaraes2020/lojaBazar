@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class WBotao extends StatelessWidget {
   final String rotulo;
-  Color cor = Colors.blue;
-  WBotao({this.rotulo, this.cor});
+  final Color cor ;
+  WBotao({this.rotulo,  this.cor = Colors.blue});
 
   @override
   Widget build(BuildContext context) {

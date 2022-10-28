@@ -41,6 +41,21 @@ class ListsShared{
     'unissex'
   ];
 
+  List<String> mesesDoAno = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro'
+  ];
+
   List<String> dropProdutos =['Carrinho' , 'Banheira','Eletronico', 'Andador', 'Berço','Chiqueirinho'
                         ,'Conjunto','Bebe Conf c base','Bebe Conf s base' ,'Cadeira p auto', 'Cadeirinha',
                         'Cadeirão','Selecione','tapete educ','Triciclo','Kit Berço','Kit Higiene', 'Lote Roupas','Colchão',

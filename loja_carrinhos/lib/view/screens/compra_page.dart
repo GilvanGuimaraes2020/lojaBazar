@@ -12,6 +12,8 @@ import 'package:loja_carrinhos/view/shared/messages/retornoEventos.dart';
 import 'package:loja_carrinhos/view/shared/validation.dart';
 import 'package:toast/toast.dart';
 
+import '../shared/messages/dialogos/confirmar_dados.dart';
+
 class CompraPage extends StatefulWidget {
   @override
   _CompraPageState createState() => _CompraPageState();
@@ -176,7 +178,8 @@ class _CompraPageState extends State<CompraPage> {
                            "banco" :item['banco'],
                            "operacao" :item['operacao'],
                            "valor":item['valor'],
-                           "status" : "Saida"
+                           "status" : "Saida",
+                           "detalhe":produtoControl.text
                                                
                         });
                            }                      
@@ -187,11 +190,18 @@ class _CompraPageState extends State<CompraPage> {
                            "banco" :dropBanco.selectedItem,
                            "operacao" :dropPag.selectedItem,
                            "valor":valorControl.text,
-                           "status" : "Saida"
+                           "status" : "Saida",
+                           "detalhe":produtoControl.text
                         }
                        ]; 
                   
                    }
+                    Map<String, dynamic> mapToMsg = Map.of(mapEstoque);  
+                    mapToMsg.removeWhere((key, value) => ['status', 'codCliente', 'codProduto'].contains(key));
+                var result = await showDialog(                       
+                       context: context, builder: (context)=>ConfirmarDados(mapCash: mapToMsg , title: "Confirmar Dados",));        
+               if(result[0]){
+                 
                       String saved = await  WriteEstoque().writeEstoque(mapEstoque , caixa, dataTime.data);           
                      
                       Toast.show(saved, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, 
@@ -199,6 +209,7 @@ class _CompraPageState extends State<CompraPage> {
                         Colors.red);
                         
                      Navigator.pop(context);
+               }
                    }
                  },
                  child: WBotao(

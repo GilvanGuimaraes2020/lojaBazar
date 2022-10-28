@@ -5,6 +5,7 @@
 import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:loja_carrinhos/ListaProdutos.dart';
 import 'package:loja_carrinhos/TelaCadastroProduto.dart';
@@ -21,9 +22,6 @@ import 'package:loja_carrinhos/view/screens/home_page.dart';
 import 'package:loja_carrinhos/view/screens/loading_page.dart';
 import 'package:loja_carrinhos/view/screens/menu_page.dart';
 
-
-
-
 void main  () async
  {
     WidgetsFlutterBinding.ensureInitialized();
@@ -31,10 +29,52 @@ void main  () async
   runApp(App());
 }
 
-class App extends StatelessWidget {
-  final Future<FirebaseApp> _inicializacao = Firebase.initializeApp(); 
+class App extends StatefulWidget {
 
   App({ Key key }) : super(key: key);
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  final Future<FirebaseApp> _inicializacao = Firebase.initializeApp(); 
+
+  FlutterLocalNotificationsPlugin localNotificationsPlugin;
+
+  Future _showNotification()async{
+    var androidDetails = AndroidNotificationDetails("channelId", "channelName"
+    "this is the description", importance: Importance.high
+    );
+
+    var iosDetails = IOSNotificationDetails();
+
+    var generalDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
+
+    await localNotificationsPlugin.show(0, "Notif Title", 
+    "the Body Notification" , generalDetails);
+  }
+
+  /* requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+      onDidReceiveLocalNotification: 
+      (int id, String title, String body, String payload) async
+      {} */
+
+  @override
+void initState(){
+  super.initState();
+  var initializationSettingAndroid = AndroidInitializationSettings('ic_launcher');
+  var initializationSettingIOS = IOSInitializationSettings();
+  
+  var initializationSettings = InitializationSettings(
+      android: initializationSettingAndroid , iOS: initializationSettingIOS
+    );
+    localNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+
+    localNotificationsPlugin.initialize(initializationSettings);
+}
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +85,8 @@ debugShowCheckedModeBanner: false,
       future: _inicializacao,
       builder: (context , app){
         if (app.connectionState == ConnectionState.done){
-          return MenuPage();
+          _showNotification();
+          return HomePage();
         } else if(app.hasError){
           return ErrorPage();
         }else{
@@ -63,7 +104,7 @@ debugShowCheckedModeBanner: false,
       '/simularVenda' : (context) => SimulacaoVenda(),
       '/comentario' : (context) => Comentarios(),
       '/relatorio' : (context)=> Relatorios(),
-       '/vendaFutura' : (context) => VendaFutura()
+      '/vendaFutura' : (context) => VendaFutura()
       
      },
 

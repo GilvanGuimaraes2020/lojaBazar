@@ -19,8 +19,7 @@ class WcashList extends StatelessWidget {
         children: 
          List.generate(
       listCash.length  , (i){
-        return Wcash(title: listCash[i].title,
-        
+        return Wcash(title: listCash[i].title,        
         total: listCash[i].total,
         );
       }),
